@@ -6,7 +6,7 @@ Thank you for your interest in contributing!
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-org/mcp-lab.git
+git clone https://github.com/raeseoklee/mcp-lab.git
 cd mcp-lab
 
 # 2. Install dependencies (requires pnpm ≥ 9 and Node ≥ 20)

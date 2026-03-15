@@ -141,6 +141,27 @@ apps/cli / apps/web
 
 ---
 
+## 브랜치 전략
+
+```
+main        ← 안정 릴리스만. 직접 커밋 금지.
+develop     ← 모든 신규 작업의 base. 여기서 feature 브랜치를 만들고 머지.
+feature/*   ← 기능 단위 작업. develop에서 분기, develop으로 머지.
+fix/*       ← 버그 픽스. develop에서 분기, develop으로 머지.
+```
+
+**워크플로:**
+1. 신규 작업은 `develop` 기반으로 브랜치 생성
+2. 작업 완료 후 `develop`에 머지
+3. 릴리스 준비가 되면 `develop` → `main` 머지 (PR 필수)
+4. `main` 직접 커밋 허용 범위: CI 설정, LICENSE, README 등 인프라/메타데이터 단순 수정
+
+**Claude 작업 규칙:**
+- 새 기능·페이지·패키지는 항상 `develop` 브랜치에 커밋
+- 브랜치 생성: `git checkout -b feature/<name> develop`
+
+---
+
 ## 커밋 규칙
 
 - Co-author 표기 없이 커밋
