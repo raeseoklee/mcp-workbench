@@ -81,6 +81,9 @@ importers:
       '@mcp-workbench/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
+      '@mcp-workbench/plugin-runtime':
+        specifier: workspace:*
+        version: link:../../packages/plugin-runtime
       '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../../packages/protocol-kernel
@@ -203,6 +206,31 @@ importers:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.19.15)
 
+  packages/plugin-runtime:
+    dependencies:
+      '@mcp-workbench/plugin-sdk':
+        specifier: workspace:*
+        version: link:../plugin-sdk
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.15
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.15)
+
+  packages/plugin-sdk:
+    devDependencies:
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.15)
+
   packages/protocol-kernel:
     devDependencies:
       typescript:
@@ -266,6 +294,22 @@ importers:
         specifier: workspace:*
         version: link:../protocol-kernel
     devDependencies:
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.15)
+
+  plugins/plugin-html-report:
+    dependencies:
+      '@mcp-workbench/plugin-sdk':
+        specifier: workspace:*
+        version: link:../../packages/plugin-sdk
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.15
       typescript:
         specifier: ^5.6.0
         version: 5.9.3
