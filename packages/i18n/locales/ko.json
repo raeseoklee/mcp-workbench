@@ -1,7 +1,7 @@
 {
   "cli.run.error.loadSpec": "스펙 파일 로드 실패: {file}",
   "cli.run.error.runner": "런너 오류: {error}",
-  "cli.run.header": "MCP Lab",
+  "cli.run.header": "MCP Workbench",
   "cli.run.label.spec": "스펙:      {file}",
   "cli.run.label.transport": "전송:      {transport}",
   "cli.run.label.tests": "테스트:    {count}",

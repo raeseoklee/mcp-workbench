@@ -1,7 +1,7 @@
 {
-  "name": "@mcp-lab/web",
+  "name": "@mcp-workbench/web",
   "version": "0.1.0",
-  "description": "MCP Lab — browser UI for inspecting and testing MCP servers",
+  "description": "MCP Workbench — browser UI for inspecting and testing MCP servers",
   "type": "module",
   "private": true,
   "scripts": {

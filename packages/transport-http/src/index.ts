@@ -1,5 +1,5 @@
-import type { Transport } from "@mcp-lab/protocol-kernel";
-import { type JsonRpcMessage, McpTransportError } from "@mcp-lab/protocol-kernel";
+import type { Transport } from "@mcp-workbench/protocol-kernel";
+import { type JsonRpcMessage, McpTransportError } from "@mcp-workbench/protocol-kernel";
 
 export interface HttpTransportOptions {
   /** MCP server endpoint URL */

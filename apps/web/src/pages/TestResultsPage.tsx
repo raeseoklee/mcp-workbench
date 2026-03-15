@@ -5,7 +5,7 @@ import type { RunReport, TestResult, AssertionResult } from "../api/types.js";
 
 type InputTab = "file" | "yaml";
 
-const DEMO_YAML = `apiVersion: mcp-lab.dev/v0alpha1
+const DEMO_YAML = `apiVersion: mcp-workbench.dev/v0alpha1
 
 server:
   transport: stdio

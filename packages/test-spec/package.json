@@ -1,5 +1,5 @@
 {
-  "name": "@mcp-lab/test-spec",
+  "name": "@mcp-workbench/test-spec",
   "version": "0.1.0",
   "type": "module",
   "description": "YAML test specification format: parser, validator, and types",
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-lab/assertions": "workspace:*",
+    "@mcp-workbench/assertions": "workspace:*",
     "yaml": "^2.5.0"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
   "engines": {
     "node": ">=20.0.0"

@@ -17,5 +17,5 @@ app.get("/api/health", (_req, res) => res.json({ ok: true, time: new Date().toIS
 
 const PORT = Number(process.env["PORT"] ?? 3001);
 app.listen(PORT, () => {
-  process.stderr.write(`MCP Lab API running on http://localhost:${PORT}\n`);
+  process.stderr.write(`MCP Workbench API running on http://localhost:${PORT}\n`);
 });

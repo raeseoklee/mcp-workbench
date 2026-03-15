@@ -20,7 +20,7 @@ export default function Layout() {
       <aside className={styles.sidebar}>
         <header className={styles.logo}>
           <span className={styles.logoIcon}>⬡</span>
-          <span className={styles.logoText}>MCP Lab</span>
+          <span className={styles.logoText}>MCP Workbench</span>
         </header>
 
         {session && (

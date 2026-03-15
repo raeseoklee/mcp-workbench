@@ -1,4 +1,4 @@
-apiVersion: mcp-lab.dev/v0alpha1
+apiVersion: mcp-workbench.dev/v0alpha1
 
 # ─── Server ───────────────────────────────────────────────────────────────────
 server:
@@ -11,7 +11,7 @@ server:
 # Declare which server→client capabilities the simulated client supports.
 client:
   clientInfo:
-    name: mcp-lab-simulator
+    name: mcp-workbench-simulator
     version: "0.1.0"
   capabilities:
     roots: {}
@@ -30,7 +30,7 @@ fixtures:
     role: assistant
     content:
       type: text
-      text: "This is a simulated LLM response from mcp-lab."
+      text: "This is a simulated LLM response from mcp-workbench."
     model: mock-model
     stopReason: endTurn
 

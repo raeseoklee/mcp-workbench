@@ -1,8 +1,8 @@
 {
-  "name": "@mcp-lab/transport-stdio",
+  "name": "@mcp-workbench/transport-stdio",
   "version": "0.1.0",
   "type": "module",
-  "description": "stdio transport adapter for MCP Lab",
+  "description": "stdio transport adapter for MCP Workbench",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-lab/protocol-kernel": "workspace:*"
+    "@mcp-workbench/protocol-kernel": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
   "engines": {
     "node": ">=20.0.0"

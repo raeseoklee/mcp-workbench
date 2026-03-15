@@ -1,8 +1,8 @@
 {
-  "name": "@mcp-lab/client-simulator",
+  "name": "@mcp-workbench/client-simulator",
   "version": "0.1.0",
   "type": "module",
-  "description": "MCP Lab client capability simulator — roots, sampling, elicitation",
+  "description": "MCP Workbench client capability simulator — roots, sampling, elicitation",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-lab/protocol-kernel": "workspace:*"
+    "@mcp-workbench/protocol-kernel": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -30,7 +30,7 @@
   "keywords": ["mcp", "model-context-protocol", "testing", "client-simulator"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
   "engines": { "node": ">=20.0.0" },
   "files": ["dist"]

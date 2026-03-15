@@ -1,4 +1,4 @@
-# CLAUDE.md — MCP Lab
+# CLAUDE.md — MCP Workbench
 
 이 파일은 Claude가 이 프로젝트에서 작업할 때 참조하는 컨텍스트입니다.
 
@@ -6,9 +6,9 @@
 
 ## 프로젝트 개요
 
-**MCP Lab** — Model Context Protocol 서버를 검사·테스트·검증하는 개발자 도구.
+**MCP Workbench** — Model Context Protocol 서버를 검사·테스트·검증하는 개발자 도구.
 
-- CLI (`mcp-lab run`, `mcp-lab inspect`)로 MCP 서버에 연결해 YAML 스펙 기반 테스트 실행
+- CLI (`mcp-workbench run`, `mcp-workbench inspect`)로 MCP 서버에 연결해 YAML 스펙 기반 테스트 실행
 - 스냅샷 diff, 어서션, 클라이언트 시뮬레이터(roots/sampling/elicitation) 지원
 - 향후 브라우저 UI(`apps/web`)를 통한 인터랙티브 인스펙터 제공 예정
 
@@ -20,7 +20,7 @@ MCP 스펙 버전: **2025-11-25**
 
 ```
 apps/
-  cli/          # mcp-lab CLI — commander 기반, dist/index.js가 bin
+  cli/          # mcp-workbench CLI — commander 기반, dist/index.js가 bin
   web/          # Vite + React 18 UI 스캐폴드 (placeholder 페이지)
 packages/
   protocol-kernel/   # JSON-RPC 2.0 엔진 + MCP 타입 + 서버→클라이언트 요청 처리
@@ -35,7 +35,7 @@ examples/
   fixtures/          # 예제 테스트 스펙 YAML
 ```
 
-패키지 이름 prefix: `@mcp-lab/*`
+패키지 이름 prefix: `@mcp-workbench/*`
 
 ---
 
@@ -64,8 +64,8 @@ pnpm build
 pnpm test
 
 # 특정 패키지만
-pnpm --filter @mcp-lab/assertions test
-pnpm --filter @mcp-lab/web dev
+pnpm --filter @mcp-workbench/assertions test
+pnpm --filter @mcp-workbench/web dev
 
 # 타입 체크
 pnpm typecheck
@@ -121,7 +121,7 @@ apps/cli / apps/web
 - `ignorePaths`는 baseline과 actual **양쪽**에 적용해야 함 (한쪽만 적용하면 오탐 발생)
 
 ### 테스트 스펙 YAML (`packages/test-spec/src/types.ts`)
-- `apiVersion: mcp-lab.dev/v0alpha1`
+- `apiVersion: mcp-workbench.dev/v0alpha1`
 - `server.transport`: `stdio` | `streamable-http` | `sse`
 - `fixtures.roots/sampling/elicitation` — 클라이언트 시뮬레이터에 주입되는 픽스처
 - `act.method`: `tools/call`, `tools/list`, `resources/read`, `resources/list`, `prompts/get`, `prompts/list`, `completion/complete`, `ping`

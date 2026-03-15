@@ -1,7 +1,7 @@
-import { loadSpec } from "@mcp-lab/test-spec";
+import { loadSpec } from "@mcp-workbench/test-spec";
 import { runSpec } from "../runner.js";
 import type { RunReport, TestResult } from "../runner.js";
-import { t } from "@mcp-lab/i18n";
+import { t } from "@mcp-workbench/i18n";
 import chalk from "chalk";
 
 export interface RunCommandOptions {

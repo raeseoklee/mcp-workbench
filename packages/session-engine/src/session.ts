@@ -16,8 +16,8 @@ import {
   isRequest,
   isNotification,
   isResponse,
-} from "@mcp-lab/protocol-kernel";
-import type { JsonRpcMessage } from "@mcp-lab/protocol-kernel";
+} from "@mcp-workbench/protocol-kernel";
+import type { JsonRpcMessage } from "@mcp-workbench/protocol-kernel";
 import { Timeline, type TimelineEvent } from "./timeline.js";
 
 /** Minimal interface so session-engine does not need to depend on client-simulator */

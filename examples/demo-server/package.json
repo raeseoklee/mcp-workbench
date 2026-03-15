@@ -1,18 +1,18 @@
 {
-  "name": "@mcp-lab/demo-server",
+  "name": "@mcp-workbench/demo-server",
   "version": "0.1.0",
-  "description": "Demo MCP server for MCP Lab — tools, resources, and prompts out of the box",
+  "description": "Demo MCP server for MCP Workbench — tools, resources, and prompts out of the box",
   "type": "module",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
-  "homepage": "https://github.com/raeseoklee/mcp-lab#readme",
+  "homepage": "https://github.com/raeseoklee/mcp-workbench#readme",
   "keywords": ["mcp", "model-context-protocol", "demo", "example"],
   "main": "./dist/index.js",
   "bin": {
-    "mcp-lab-demo": "./dist/index.js"
+    "mcp-workbench-demo": "./dist/index.js"
   },
   "files": [
     "dist"

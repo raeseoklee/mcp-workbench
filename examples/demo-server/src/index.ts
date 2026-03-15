@@ -1,7 +1,7 @@
 /**
  * Demo MCP server using the official @modelcontextprotocol/sdk.
  * Provides a simple weather tool, a note resource, and a greeting prompt —
- * just enough to exercise all of MCP Lab's features.
+ * just enough to exercise all of MCP Workbench's features.
  */
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -23,8 +23,8 @@ const CITIES: Record<string, { temp: number; condition: string }> = {
 };
 
 const NOTES: Record<string, string> = {
-  "note://welcome": "Welcome to MCP Lab! This is a demo note resource.",
-  "note://readme":  "# Demo Server\n\nThis server is part of the MCP Lab examples.",
+  "note://welcome": "Welcome to MCP Workbench! This is a demo note resource.",
+  "note://readme":  "# Demo Server\n\nThis server is part of the MCP Workbench examples.",
 };
 
 const server = new Server(
