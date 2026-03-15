@@ -1,5 +1,11 @@
 // ─── Session ─────────────────────────────────────────────────────────────────
 
+export interface SimulatorConfig {
+  roots?: Array<{ name: string; uri: string }>;
+  sampling?: { preset?: { text: string; model?: string } };
+  elicitation?: { action: "accept" | "decline" };
+}
+
 export interface SessionConfig {
   transport: "stdio" | "streamable-http";
   // stdio
@@ -9,6 +15,8 @@ export interface SessionConfig {
   // http
   url?: string;
   headers?: Record<string, string>;
+  // client simulator
+  simulator?: SimulatorConfig;
 }
 
 export interface SessionInfo {
