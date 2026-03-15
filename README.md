@@ -37,6 +37,7 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 - **CI-friendly** — `--json` output, non-zero exit on failure, `--bail` flag
 - **Protocol-accurate** — implements MCP spec `2025-11-25` including capability negotiation, session lifecycle, and notification handling
 - **Browser UI** — full-featured web inspector with Protocol tab (DevTools-style request/response log), dark/light mode, and live test runner
+- **Plugin system** — extend with reporters (`html`, `junit`) and custom commands via `--plugin` or `workbench.config.yaml`
 
 ---
 
@@ -307,6 +308,35 @@ To try it with the demo server, enter these values on the Inspect page:
 The UI supports dark and light mode — toggle with the `☀`/`☾` button in the sidebar.
 
 ![Tool execution — Web UI](docs/assets/tool-execution.gif)
+
+---
+
+## Plugins
+
+MCP Workbench has an extensible plugin system for reporters and custom commands.
+
+```bash
+# Generate an HTML report after running tests
+mcp-workbench run tests.yaml \
+  --plugin @mcp-workbench/plugin-html-report \
+  --reporter html
+
+# Generate JUnit XML for CI (GitHub Actions, Jenkins, etc.)
+mcp-workbench run tests.yaml \
+  --plugin @mcp-workbench/plugin-junit \
+  --reporter junit \
+  --reporter-output test-results.xml
+```
+
+Or configure plugins permanently in `workbench.config.yaml`:
+
+```yaml
+plugins:
+  - "@mcp-workbench/plugin-html-report"
+  - "@mcp-workbench/plugin-junit"
+```
+
+See [docs/plugins.md](docs/plugins.md) for the full plugin guide including how to build your own.
 
 ---
 
