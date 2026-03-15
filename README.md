@@ -36,6 +36,7 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 - **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
 - **CI-friendly** — `--json` output, non-zero exit on failure, `--bail` flag
 - **Protocol-accurate** — implements MCP spec `2025-11-25` including capability negotiation, session lifecycle, and notification handling
+- **Browser UI** — full-featured web inspector with Protocol tab (DevTools-style request/response log), dark/light mode, and live test runner
 
 ---
 
@@ -291,7 +292,7 @@ node apps/api/dist/index.js
 pnpm --filter @mcp-workbench/web dev
 ```
 
-Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
+Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Protocol log.
 
 To try it with the demo server, enter these values on the Inspect page:
 
@@ -301,7 +302,11 @@ To try it with the demo server, enter these values on the Inspect page:
 | Command | `mcp-workbench-demo` |
 | Args | *(leave empty)* |
 
-![Tool execution](docs/assets/tool-execution.gif)
+**Protocol Inspector** — the Protocol tab shows every MCP message (initialize, tools/call, resources/read, etc.) as a DevTools-style request/response log with syntax-highlighted JSON payloads, status indicators, and duration timings.
+
+The UI supports dark and light mode — toggle with the `☀`/`☾` button in the sidebar.
+
+![Tool execution — Web UI](docs/assets/tool-execution.gif)
 
 ---
 

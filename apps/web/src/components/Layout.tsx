@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { to: "/tools",      label: "Tools" },
   { to: "/resources",  label: "Resources" },
   { to: "/prompts",    label: "Prompts" },
-  { to: "/timeline",   label: "Timeline" },
+  { to: "/timeline",   label: "Protocol" },
   { to: "/tests",      label: "Test Results" },
 ];
 
