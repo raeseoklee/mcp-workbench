@@ -11,6 +11,8 @@ Test, inspect, and validate [Model Context Protocol](https://modelcontextprotoco
 MCP Lab = Inspector + Contract Test + Regression Diff + CI Runner
 ```
 
+![MCP Lab demo](docs/assets/demo.gif)
+
 ---
 
 ## Why MCP Lab?
@@ -214,6 +216,8 @@ MCP Lab is a pnpm monorepo. The public package is `mcp-lab`. Internal libraries 
 ```
 apps/
   cli                  — CLI entry point (mcp-lab command)
+  web                  — Browser UI (Vite + React)
+  api                  — API server bridging the UI to MCP packages
 
 packages/
   protocol-kernel      — JSON-RPC 2.0 + MCP types, ProtocolKernel class
@@ -222,11 +226,30 @@ packages/
   transport-http       — Streamable HTTP + SSE transport
   assertions           — Assertion engine
   test-spec            — YAML spec types and parser
+  client-simulator     — Roots / sampling / elicitation capability simulator
 
 examples/
   demo-server          — Demo MCP server (tools, resources, prompts)
   fixtures/            — Example test specs
 ```
+
+---
+
+## Web UI
+
+MCP Lab includes a browser-based inspector. Start the API server and the Vite dev server:
+
+```bash
+# Terminal 1 — API server
+node apps/api/dist/index.js
+
+# Terminal 2 — Web UI (http://localhost:5173)
+pnpm --filter @mcp-lab/web dev
+```
+
+Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
+
+![Tool execution](docs/assets/tool-execution.gif)
 
 ---
 
