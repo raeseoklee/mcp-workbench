@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { setLang } from "@mcp-lab/i18n";
+import { setLang } from "@mcp-workbench/i18n";
 import { runCommand } from "./commands/run.js";
 import { inspectCommand } from "./commands/inspect.js";
 
 const program = new Command();
 
 program
-  .name("mcp-lab")
+  .name("mcp-workbench")
   .description("MCP server testing, validation, and regression platform")
   .version("0.1.0")
   .option(
     "--lang <locale>",
-    "Output language: en | ko  (env: MCP_LAB_LANG)",
+    "Output language: en | ko  (env: MCP_WORKBENCH_LANG)",
   )
   .hook("preAction", () => {
     const lang = (program.opts() as { lang?: string }).lang;
@@ -31,7 +31,7 @@ program
   .option("--json", "Output results as JSON", false)
   .option("-v, --verbose", "Show all assertion details", false)
   .option("-u, --update-snapshots", "Write/overwrite snapshot baselines", false)
-  .option("--snapshots-dir <dir>", "Directory for snapshot files (default: .mcp-lab/snapshots)")
+  .option("--snapshots-dir <dir>", "Directory for snapshot files (default: .mcp-workbench/snapshots)")
   .action(runCommand);
 
 // ─── inspect ─────────────────────────────────────────────────────────────────

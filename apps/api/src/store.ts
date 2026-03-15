@@ -1,6 +1,6 @@
-import { Session } from "@mcp-lab/session-engine";
-import { StdioTransport } from "@mcp-lab/transport-stdio";
-import { HttpTransport } from "@mcp-lab/transport-http";
+import { Session } from "@mcp-workbench/session-engine";
+import { StdioTransport } from "@mcp-workbench/transport-stdio";
+import { HttpTransport } from "@mcp-workbench/transport-http";
 
 // ─── Config types ─────────────────────────────────────────────────────────────
 
@@ -51,7 +51,7 @@ export async function createSession(config: SessionConfig): Promise<SessionEntry
   }
 
   const session = new Session(transport, {
-    clientInfo: { name: "mcp-lab-web", version: "0.1.0" },
+    clientInfo: { name: "mcp-workbench-web", version: "0.1.0" },
   });
   await session.connect();
 

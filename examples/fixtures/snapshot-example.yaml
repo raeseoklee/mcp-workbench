@@ -1,4 +1,4 @@
-apiVersion: mcp-lab.dev/v0alpha1
+apiVersion: mcp-workbench.dev/v0alpha1
 
 # Snapshot / baseline example
 #
@@ -6,8 +6,8 @@ apiVersion: mcp-lab.dev/v0alpha1
 # Subsequent runs:                          compares and fails on diff.
 #
 # Usage:
-#   mcp-lab run examples/fixtures/snapshot-example.yaml --update-snapshots
-#   mcp-lab run examples/fixtures/snapshot-example.yaml
+#   mcp-workbench run examples/fixtures/snapshot-example.yaml --update-snapshots
+#   mcp-workbench run examples/fixtures/snapshot-example.yaml
 
 server:
   transport: stdio

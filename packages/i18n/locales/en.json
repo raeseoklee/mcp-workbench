@@ -1,7 +1,7 @@
 {
   "cli.run.error.loadSpec": "Failed to load spec: {file}",
   "cli.run.error.runner": "Runner error: {error}",
-  "cli.run.header": "MCP Lab",
+  "cli.run.header": "MCP Workbench",
   "cli.run.label.spec": "Spec:      {file}",
   "cli.run.label.transport": "Transport: {transport}",
   "cli.run.label.tests": "Tests:     {count}",

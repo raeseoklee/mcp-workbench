@@ -2,20 +2,20 @@
  * Test runner: takes a parsed TestSpec, connects to the server,
  * and executes all test cases with assertions.
  */
-import { Session } from "@mcp-lab/session-engine";
-import { StdioTransport } from "@mcp-lab/transport-stdio";
-import { HttpTransport } from "@mcp-lab/transport-http";
-import { runAssertions, createFileSnapshotStore } from "@mcp-lab/assertions";
-import type { AssertionResult, SnapshotStore } from "@mcp-lab/assertions";
+import { Session } from "@mcp-workbench/session-engine";
+import { StdioTransport } from "@mcp-workbench/transport-stdio";
+import { HttpTransport } from "@mcp-workbench/transport-http";
+import { runAssertions, createFileSnapshotStore } from "@mcp-workbench/assertions";
+import type { AssertionResult, SnapshotStore } from "@mcp-workbench/assertions";
 import type {
   TestSpec,
   TestCase,
   ServerConfig,
   TestAction,
   Fixtures,
-} from "@mcp-lab/test-spec";
-import { ClientSimulator } from "@mcp-lab/client-simulator";
-import type { Transport } from "@mcp-lab/protocol-kernel";
+} from "@mcp-workbench/test-spec";
+import { ClientSimulator } from "@mcp-workbench/client-simulator";
+import type { Transport } from "@mcp-workbench/protocol-kernel";
 import { join } from "node:path";
 
 // ─── Results ──────────────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ export interface RunnerOptions {
   timeoutMs?: number;
   /**
    * Directory where snapshot baselines are stored.
-   * Defaults to .mcp-lab/snapshots relative to cwd.
+   * Defaults to .mcp-workbench/snapshots relative to cwd.
    */
   snapshotsDir?: string;
   /**
@@ -81,7 +81,7 @@ export async function runSpec(
 
   const session = new Session(transport, {
     clientInfo: {
-      name: spec.client?.clientInfo?.name ?? "mcp-lab",
+      name: spec.client?.clientInfo?.name ?? "mcp-workbench",
       version: spec.client?.clientInfo?.version ?? "0.1.0",
     },
     clientCapabilities: spec.client?.capabilities ?? {},
@@ -92,7 +92,7 @@ export async function runSpec(
   await session.connect();
 
   // Build snapshot store
-  const snapshotsDir = opts.snapshotsDir ?? join(process.cwd(), ".mcp-lab", "snapshots");
+  const snapshotsDir = opts.snapshotsDir ?? join(process.cwd(), ".mcp-workbench", "snapshots");
   const snapshotStore: SnapshotStore = createFileSnapshotStore(snapshotsDir);
 
   const results: TestResult[] = [];

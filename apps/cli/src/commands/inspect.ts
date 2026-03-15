@@ -1,11 +1,11 @@
 /**
- * `mcp-lab inspect` — connect to a server and display its capabilities
+ * `mcp-workbench inspect` — connect to a server and display its capabilities
  * without running any tests.
  */
-import { Session } from "@mcp-lab/session-engine";
-import { StdioTransport } from "@mcp-lab/transport-stdio";
-import { HttpTransport } from "@mcp-lab/transport-http";
-import { t } from "@mcp-lab/i18n";
+import { Session } from "@mcp-workbench/session-engine";
+import { StdioTransport } from "@mcp-workbench/transport-stdio";
+import { HttpTransport } from "@mcp-workbench/transport-http";
+import { t } from "@mcp-workbench/i18n";
 import chalk from "chalk";
 
 export interface InspectCommandOptions {

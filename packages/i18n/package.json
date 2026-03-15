@@ -1,8 +1,8 @@
 {
-  "name": "@mcp-lab/i18n",
+  "name": "@mcp-workbench/i18n",
   "version": "0.1.0",
   "type": "module",
-  "description": "Lightweight i18n for MCP Lab — works in both Node.js and browser",
+  "description": "Lightweight i18n for MCP Workbench — works in both Node.js and browser",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -26,7 +26,7 @@
   "keywords": ["mcp", "i18n", "internationalization"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
   "engines": {
     "node": ">=20.0.0"

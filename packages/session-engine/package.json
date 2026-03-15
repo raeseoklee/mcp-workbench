@@ -1,5 +1,5 @@
 {
-  "name": "@mcp-lab/session-engine",
+  "name": "@mcp-workbench/session-engine",
   "version": "0.1.0",
   "type": "module",
   "description": "Connection lifecycle, timeline recording, and test orchestration",
@@ -19,8 +19,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-lab/protocol-kernel": "workspace:*",
-    "@mcp-lab/assertions": "workspace:*"
+    "@mcp-workbench/protocol-kernel": "workspace:*",
+    "@mcp-workbench/assertions": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -34,7 +34,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
   "engines": {
     "node": ">=20.0.0"

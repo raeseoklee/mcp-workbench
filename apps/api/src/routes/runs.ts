@@ -1,5 +1,5 @@
 import { Router, type Router as RouterType } from "express";
-import { parseSpec, loadSpec, SpecParseError } from "@mcp-lab/test-spec";
+import { parseSpec, loadSpec, SpecParseError } from "@mcp-workbench/test-spec";
 import { runSpec } from "../runner.js";
 import type { RunnerOptions } from "../runner.js";
 

@@ -1,7 +1,7 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import { createInterface } from "node:readline";
-import type { Transport } from "@mcp-lab/protocol-kernel";
-import { type JsonRpcMessage, McpTransportError } from "@mcp-lab/protocol-kernel";
+import type { Transport } from "@mcp-workbench/protocol-kernel";
+import { type JsonRpcMessage, McpTransportError } from "@mcp-workbench/protocol-kernel";
 
 export interface StdioTransportOptions {
   /** Command to run (e.g. "node", "python", "java") */

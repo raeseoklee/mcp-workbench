@@ -6,8 +6,8 @@ dist/
 .env.*
 !.env.example
 
-# MCP Lab runtime artifacts
-.mcp-lab/
+# MCP Workbench runtime artifacts
+.mcp-workbench/
 
 # Editor
 .DS_Store

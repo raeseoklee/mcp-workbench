@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { ClientSimulator } from "../simulator.js";
 import type { ClientSimulatorConfig } from "../types.js";
-import { MCP_METHODS } from "@mcp-lab/protocol-kernel";
+import { MCP_METHODS } from "@mcp-workbench/protocol-kernel";
 
 // ─── Mock Kernel ──────────────────────────────────────────────────────────────
 

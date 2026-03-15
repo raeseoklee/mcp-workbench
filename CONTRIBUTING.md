@@ -1,4 +1,4 @@
-# Contributing to MCP Lab
+# Contributing to MCP Workbench
 
 Thank you for your interest in contributing!
 
@@ -6,8 +6,8 @@ Thank you for your interest in contributing!
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/raeseoklee/mcp-lab.git
-cd mcp-lab
+git clone https://github.com/raeseoklee/mcp-workbench.git
+cd mcp-workbench
 
 # 2. Install dependencies (requires pnpm ≥ 9 and Node ≥ 20)
 pnpm install
@@ -24,8 +24,8 @@ node apps/cli/dist/index.js run examples/fixtures/demo-server.yaml --verbose
 
 ## Project Structure
 
-- `packages/` — library packages (`@mcp-lab/*`)
-- `apps/cli` — the `mcp-lab` CLI
+- `packages/` — library packages (`@mcp-workbench/*`)
+- `apps/cli` — the `mcp-workbench` CLI
 - `examples/` — demo server and fixture files
 
 ## Workflow
@@ -45,7 +45,7 @@ node apps/cli/dist/index.js run examples/fixtures/demo-server.yaml --verbose
 ## Adding a New Transport
 
 1. Create `packages/transport-<name>/`
-2. Implement the `Transport` interface from `@mcp-lab/protocol-kernel`
+2. Implement the `Transport` interface from `@mcp-workbench/protocol-kernel`
 3. Export from `index.ts`
 4. Add to the CLI runner in `apps/cli/src/runner.ts`
 

@@ -26,25 +26,25 @@ importers:
 
   apps/api:
     dependencies:
-      '@mcp-lab/assertions':
+      '@mcp-workbench/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
-      '@mcp-lab/client-simulator':
+      '@mcp-workbench/client-simulator':
         specifier: workspace:*
         version: link:../../packages/client-simulator
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../../packages/protocol-kernel
-      '@mcp-lab/session-engine':
+      '@mcp-workbench/session-engine':
         specifier: workspace:*
         version: link:../../packages/session-engine
-      '@mcp-lab/test-spec':
+      '@mcp-workbench/test-spec':
         specifier: workspace:*
         version: link:../../packages/test-spec
-      '@mcp-lab/transport-http':
+      '@mcp-workbench/transport-http':
         specifier: workspace:*
         version: link:../../packages/transport-http
-      '@mcp-lab/transport-stdio':
+      '@mcp-workbench/transport-stdio':
         specifier: workspace:*
         version: link:../../packages/transport-stdio
       cors:
@@ -72,28 +72,28 @@ importers:
 
   apps/cli:
     dependencies:
-      '@mcp-lab/assertions':
+      '@mcp-workbench/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
-      '@mcp-lab/client-simulator':
+      '@mcp-workbench/client-simulator':
         specifier: workspace:*
         version: link:../../packages/client-simulator
-      '@mcp-lab/i18n':
+      '@mcp-workbench/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../../packages/protocol-kernel
-      '@mcp-lab/session-engine':
+      '@mcp-workbench/session-engine':
         specifier: workspace:*
         version: link:../../packages/session-engine
-      '@mcp-lab/test-spec':
+      '@mcp-workbench/test-spec':
         specifier: workspace:*
         version: link:../../packages/test-spec
-      '@mcp-lab/transport-http':
+      '@mcp-workbench/transport-http':
         specifier: workspace:*
         version: link:../../packages/transport-http
-      '@mcp-lab/transport-stdio':
+      '@mcp-workbench/transport-stdio':
         specifier: workspace:*
         version: link:../../packages/transport-stdio
       chalk:
@@ -177,7 +177,7 @@ importers:
 
   packages/client-simulator:
     dependencies:
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../protocol-kernel
     devDependencies:
@@ -214,10 +214,10 @@ importers:
 
   packages/session-engine:
     dependencies:
-      '@mcp-lab/assertions':
+      '@mcp-workbench/assertions':
         specifier: workspace:*
         version: link:../assertions
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../protocol-kernel
     devDependencies:
@@ -230,7 +230,7 @@ importers:
 
   packages/test-spec:
     dependencies:
-      '@mcp-lab/assertions':
+      '@mcp-workbench/assertions':
         specifier: workspace:*
         version: link:../assertions
       yaml:
@@ -249,7 +249,7 @@ importers:
 
   packages/transport-http:
     dependencies:
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../protocol-kernel
     devDependencies:
@@ -262,7 +262,7 @@ importers:
 
   packages/transport-stdio:
     dependencies:
-      '@mcp-lab/protocol-kernel':
+      '@mcp-workbench/protocol-kernel':
         specifier: workspace:*
         version: link:../protocol-kernel
     devDependencies:

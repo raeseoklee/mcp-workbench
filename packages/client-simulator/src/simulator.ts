@@ -6,7 +6,7 @@ import {
   type ElicitParams,
   type ElicitResult,
   type ListRootsResult,
-} from "@mcp-lab/protocol-kernel";
+} from "@mcp-workbench/protocol-kernel";
 import type {
   ClientSimulatorConfig,
   InstalledCapabilities,

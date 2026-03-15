@@ -27,7 +27,7 @@ export default function OverviewPage() {
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>MCP Lab</h1>
+        <h1 className={styles.heroTitle}>MCP Workbench</h1>
         <p className={styles.heroSub}>
           Inspect, test, and validate Model Context Protocol servers.
         </p>
@@ -47,13 +47,13 @@ export default function OverviewPage() {
       <section className={styles.quickstart}>
         <h2 className={styles.sectionTitle}>Quick start</h2>
         <pre className={styles.codeBlock}>{`# Install
-npm install -g mcp-lab
+npm install -g mcp-workbench
 
 # Run a test spec
-mcp-lab run examples/fixtures/demo-server.yaml
+mcp-workbench run examples/fixtures/demo-server.yaml
 
 # Update snapshots
-mcp-lab run examples/fixtures/snapshot-example.yaml --update-snapshots`}</pre>
+mcp-workbench run examples/fixtures/snapshot-example.yaml --update-snapshots`}</pre>
       </section>
     </div>
   );

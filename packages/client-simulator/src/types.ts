@@ -5,7 +5,7 @@ import type {
   ElicitParams,
   ElicitResult,
   ListRootsResult,
-} from "@mcp-lab/protocol-kernel";
+} from "@mcp-workbench/protocol-kernel";
 
 export type { Root, CreateMessageParams, CreateMessageResult, ElicitParams, ElicitResult };
 

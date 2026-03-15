@@ -1,9 +1,9 @@
 {
-  "name": "@mcp-lab/api",
+  "name": "@mcp-workbench/api",
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "description": "MCP Lab API server — HTTP bridge between the web UI and MCP packages",
+  "description": "MCP Workbench API server — HTTP bridge between the web UI and MCP packages",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -14,13 +14,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-lab/session-engine": "workspace:*",
-    "@mcp-lab/transport-stdio": "workspace:*",
-    "@mcp-lab/transport-http": "workspace:*",
-    "@mcp-lab/test-spec": "workspace:*",
-    "@mcp-lab/assertions": "workspace:*",
-    "@mcp-lab/client-simulator": "workspace:*",
-    "@mcp-lab/protocol-kernel": "workspace:*",
+    "@mcp-workbench/session-engine": "workspace:*",
+    "@mcp-workbench/transport-stdio": "workspace:*",
+    "@mcp-workbench/transport-http": "workspace:*",
+    "@mcp-workbench/test-spec": "workspace:*",
+    "@mcp-workbench/assertions": "workspace:*",
+    "@mcp-workbench/client-simulator": "workspace:*",
+    "@mcp-workbench/protocol-kernel": "workspace:*",
     "express": "^4.21.0",
     "cors": "^2.8.5"
   },
@@ -34,6 +34,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   }
 }

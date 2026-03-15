@@ -1,6 +1,6 @@
-import type { Assertion } from "@mcp-lab/assertions";
+import type { Assertion } from "@mcp-workbench/assertions";
 
-export const SPEC_API_VERSION = "mcp-lab.dev/v0alpha1";
+export const SPEC_API_VERSION = "mcp-workbench.dev/v0alpha1";
 
 // ─── Server Profile ───────────────────────────────────────────────────────────
 

@@ -121,7 +121,7 @@ export class ProtocolKernel extends EventEmitter {
     this.transport = transport;
     this.options = {
       clientInfo: options.clientInfo ?? {
-        name: "mcp-lab",
+        name: "mcp-workbench",
         version: "0.1.0",
       },
       clientCapabilities: options.clientCapabilities ?? {},

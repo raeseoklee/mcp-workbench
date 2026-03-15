@@ -1,36 +1,36 @@
-# MCP Lab
+# MCP Workbench
 
 **A quality platform for MCP server developers.**
 
 Test, inspect, and validate [Model Context Protocol](https://modelcontextprotocol.io) servers — from the command line or in CI.
 
-[![CI](https://github.com/raeseoklee/mcp-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/raeseoklee/mcp-lab/actions/workflows/ci.yml)
+[![CI](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml/badge.svg)](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 ```
-MCP Lab = Inspector + Contract Test + Regression Diff + CI Runner
+MCP Workbench = Inspector + Contract Test + Regression Diff + CI Runner
 ```
 
-![MCP Lab demo](docs/assets/demo.gif)
+![MCP Workbench demo](docs/assets/demo.gif)
 
 ---
 
-## Why MCP Lab?
+## Why MCP Workbench?
 
 The MCP ecosystem has debugging tools (Inspector) and SDKs, but no dedicated quality validation platform.
-MCP Lab fills that gap: **saved tests, regression diffs, and CI-ready assertion runs**.
+MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready assertion runs**.
 
 | Tool | Interactive Debug | Saved Tests | Regression Diff | CI Runner |
 |------|:-----------------:|:-----------:|:---------------:|:---------:|
 | MCP Inspector | ✓ | — | — | — |
-| **MCP Lab** | ✓ | **✓** | **✓** | **✓** |
+| **MCP Workbench** | ✓ | **✓** | **✓** | **✓** |
 
 ---
 
 ## Features
 
-- **`mcp-lab inspect`** — connect to any MCP server and explore its capabilities, tools, resources, and prompts
-- **`mcp-lab run`** — execute YAML-defined test suites with rich assertions
+- **`mcp-workbench inspect`** — connect to any MCP server and explore its capabilities, tools, resources, and prompts
+- **`mcp-workbench run`** — execute YAML-defined test suites with rich assertions
 - **Assertion engine** — `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, and more
 - **Transport support** — `stdio` (local servers), `streamable-http` (remote servers), legacy SSE
 - **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
@@ -42,9 +42,9 @@ MCP Lab fills that gap: **saved tests, regression diffs, and CI-ready assertion 
 ## Installation
 
 ```bash
-npm install -g mcp-lab
+npm install -g mcp-workbench
 # or
-pnpm add -g mcp-lab
+pnpm add -g mcp-workbench
 ```
 
 ---
@@ -56,21 +56,21 @@ pnpm add -g mcp-lab
 Install the CLI and the bundled demo server, then inspect it:
 
 ```bash
-npm install -g mcp-lab @mcp-lab/demo-server
+npm install -g mcp-workbench @mcp-workbench/demo-server
 
-mcp-lab inspect --command mcp-lab-demo
+mcp-workbench inspect --command mcp-workbench-demo
 ```
 
-The demo server exposes a weather tool, note resources, and a greeting prompt — everything you need to explore all of MCP Lab's features without writing a single line of server code.
+The demo server exposes a weather tool, note resources, and a greeting prompt — everything you need to explore all of MCP Workbench's features without writing a single line of server code.
 
 ### Inspect a server
 
 ```bash
 # stdio (local server)
-mcp-lab inspect --command node --args "path/to/server.js"
+mcp-workbench inspect --command node --args "path/to/server.js"
 
 # HTTP (remote server)
-mcp-lab inspect --transport streamable-http --url https://your-server.com/mcp
+mcp-workbench inspect --transport streamable-http --url https://your-server.com/mcp
 ```
 
 Example output:
@@ -101,26 +101,26 @@ Example output:
 ### Run a test suite
 
 ```bash
-mcp-lab run tests.yaml
-mcp-lab run tests.yaml --verbose
-mcp-lab run tests.yaml --json > results.json
-mcp-lab run tests.yaml --bail --timeout 5000
+mcp-workbench run tests.yaml
+mcp-workbench run tests.yaml --verbose
+mcp-workbench run tests.yaml --json > results.json
+mcp-workbench run tests.yaml --bail --timeout 5000
 ```
 
 Try the included fixture against the demo server:
 
 ```bash
-mcp-lab run examples/fixtures/demo-server.yaml --verbose
+mcp-workbench run examples/fixtures/demo-server.yaml --verbose
 ```
 
 ---
 
 ## Test Specification Format
 
-Test suites are YAML files with the `mcp-lab.dev/v0alpha1` schema.
+Test suites are YAML files with the `mcp-workbench.dev/v0alpha1` schema.
 
 ```yaml
-apiVersion: mcp-lab.dev/v0alpha1
+apiVersion: mcp-workbench.dev/v0alpha1
 
 server:
   transport: stdio
@@ -198,10 +198,10 @@ tests:
 
 ## CLI Reference
 
-### `mcp-lab inspect`
+### `mcp-workbench inspect`
 
 ```
-mcp-lab inspect [options]
+mcp-workbench inspect [options]
 
 Options:
   --transport <kind>   stdio | streamable-http | sse  (default: stdio)
@@ -210,13 +210,13 @@ Options:
   --url <url>          Server URL (HTTP)
   --timeout <ms>       Request timeout
   --json               JSON output
-  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
+  --lang <locale>      Output language: en | ko  (env: MCP_WORKBENCH_LANG)
 ```
 
-### `mcp-lab run`
+### `mcp-workbench run`
 
 ```
-mcp-lab run <spec-file> [options]
+mcp-workbench run <spec-file> [options]
 
 Options:
   --tags <tags>        Run only tests matching these comma-separated tags
@@ -225,7 +225,7 @@ Options:
   --timeout <ms>       Per-request timeout
   --json               JSON output (CI-friendly)
   -v, --verbose        Show all assertion details
-  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
+  --lang <locale>      Output language: en | ko  (env: MCP_WORKBENCH_LANG)
 ```
 
 ---
@@ -236,10 +236,10 @@ CLI output is available in multiple languages.
 
 ```bash
 # Korean output via flag
-mcp-lab run tests.yaml --lang ko
+mcp-workbench run tests.yaml --lang ko
 
 # Korean output via environment variable
-MCP_LAB_LANG=ko mcp-lab inspect --command mcp-lab-demo
+MCP_WORKBENCH_LANG=ko mcp-workbench inspect --command mcp-workbench-demo
 ```
 
 | Locale | Language |
@@ -255,11 +255,11 @@ To add a new locale, see [docs/i18n.md](docs/i18n.md).
 
 ## Architecture
 
-MCP Lab is a pnpm monorepo. The public package is `mcp-lab`. Internal libraries are published under `@mcp-lab/*`.
+MCP Workbench is a pnpm monorepo. The public package is `mcp-workbench`. Internal libraries are published under `@mcp-workbench/*`.
 
 ```
 apps/
-  cli                  — CLI entry point (mcp-lab command)
+  cli                  — CLI entry point (mcp-workbench command)
   web                  — Browser UI (Vite + React)
   api                  — API server bridging the UI to MCP packages
 
@@ -281,14 +281,14 @@ examples/
 
 ## Web UI
 
-MCP Lab includes a browser-based inspector. Start the API server and the Vite dev server:
+MCP Workbench includes a browser-based inspector. Start the API server and the Vite dev server:
 
 ```bash
 # Terminal 1 — API server
 node apps/api/dist/index.js
 
 # Terminal 2 — Web UI (http://localhost:5173)
-pnpm --filter @mcp-lab/web dev
+pnpm --filter @mcp-workbench/web dev
 ```
 
 Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
@@ -298,10 +298,46 @@ To try it with the demo server, enter these values on the Inspect page:
 | Field | Value |
 |-------|-------|
 | Transport | stdio |
-| Command | `mcp-lab-demo` |
+| Command | `mcp-workbench-demo` |
 | Args | *(leave empty)* |
 
 ![Tool execution](docs/assets/tool-execution.gif)
+
+---
+
+## Previously known as MCP Lab
+
+This project was previously called **MCP Lab** (`mcp-lab`). It has been renamed to **MCP Workbench** (`mcp-workbench`).
+
+If you have an existing installation, update it as follows:
+
+```bash
+# Remove the old CLI
+npm uninstall -g mcp-lab
+
+# Install the new CLI
+npm install -g mcp-workbench
+```
+
+Update any saved YAML spec files:
+
+```yaml
+# Before
+apiVersion: mcp-lab.dev/v0alpha1
+
+# After
+apiVersion: mcp-workbench.dev/v0alpha1
+```
+
+Update any environment variable references:
+
+```bash
+# Before
+MCP_LAB_LANG=ko mcp-lab run tests.yaml
+
+# After
+MCP_WORKBENCH_LANG=ko mcp-workbench run tests.yaml
+```
 
 ---
 

@@ -6,7 +6,7 @@ describe("i18n — language switching", () => {
 
   it("returns English by default", () => {
     setLang("en");
-    expect(t("cli.run.header")).toBe("MCP Lab");
+    expect(t("cli.run.header")).toBe("MCP Workbench");
   });
 
   it("switches to Korean", () => {
@@ -29,7 +29,7 @@ describe("i18n — fallback behaviour", () => {
   it("falls back to English for an unsupported locale", () => {
     setLang("fr");
     expect(getLang()).toBe("en");
-    expect(t("cli.run.header")).toBe("MCP Lab");
+    expect(t("cli.run.header")).toBe("MCP Workbench");
   });
 
   it("falls back to key when translation is missing in all locales", () => {
@@ -41,7 +41,7 @@ describe("i18n — fallback behaviour", () => {
     // testing the resolution chain via a direct English-only key check.
     setLang("en");
     const val = t("cli.run.header");
-    expect(val).toBe("MCP Lab");
+    expect(val).toBe("MCP Workbench");
   });
 });
 
@@ -77,8 +77,8 @@ describe("i18n — param interpolation", () => {
 describe("i18n — environment variable", () => {
   afterEach(() => setLang("en"));
 
-  it("setLang mirrors what MCP_LAB_LANG would do at startup", () => {
-    // The module already read MCP_LAB_LANG at load time.
+  it("setLang mirrors what MCP_WORKBENCH_LANG would do at startup", () => {
+    // The module already read MCP_WORKBENCH_LANG at load time.
     // Test that manually calling setLang with the env value gives the same result.
     const envLang = "ko";
     setLang(envLang);

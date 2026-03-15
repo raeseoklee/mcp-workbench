@@ -1,23 +1,23 @@
 {
-  "name": "mcp-lab",
+  "name": "mcp-workbench",
   "version": "0.1.0",
-  "description": "MCP Lab — test, inspect, and validate MCP servers",
+  "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",
   "keywords": ["mcp", "model-context-protocol", "testing", "cli", "developer-tools"],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raeseoklee/mcp-lab.git"
+    "url": "https://github.com/raeseoklee/mcp-workbench.git"
   },
-  "homepage": "https://github.com/raeseoklee/mcp-lab#readme",
+  "homepage": "https://github.com/raeseoklee/mcp-workbench#readme",
   "bugs": {
-    "url": "https://github.com/raeseoklee/mcp-lab/issues"
+    "url": "https://github.com/raeseoklee/mcp-workbench/issues"
   },
   "engines": {
     "node": ">=20.0.0"
   },
   "bin": {
-    "mcp-lab": "./dist/index.js"
+    "mcp-workbench": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "files": [
@@ -32,14 +32,14 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@mcp-lab/protocol-kernel": "workspace:*",
-    "@mcp-lab/session-engine": "workspace:*",
-    "@mcp-lab/transport-stdio": "workspace:*",
-    "@mcp-lab/transport-http": "workspace:*",
-    "@mcp-lab/test-spec": "workspace:*",
-    "@mcp-lab/assertions": "workspace:*",
-    "@mcp-lab/client-simulator": "workspace:*",
-    "@mcp-lab/i18n": "workspace:*",
+    "@mcp-workbench/protocol-kernel": "workspace:*",
+    "@mcp-workbench/session-engine": "workspace:*",
+    "@mcp-workbench/transport-stdio": "workspace:*",
+    "@mcp-workbench/transport-http": "workspace:*",
+    "@mcp-workbench/test-spec": "workspace:*",
+    "@mcp-workbench/assertions": "workspace:*",
+    "@mcp-workbench/client-simulator": "workspace:*",
+    "@mcp-workbench/i18n": "workspace:*",
     "commander": "^12.0.0",
     "chalk": "^5.3.0",
     "ora": "^8.0.0",

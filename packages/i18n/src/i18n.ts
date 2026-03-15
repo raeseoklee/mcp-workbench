@@ -1,5 +1,5 @@
 /**
- * Lightweight i18n for MCP Lab.
+ * Lightweight i18n for MCP Workbench.
  *
  * Design goals:
  *  - Zero runtime dependencies
@@ -10,7 +10,7 @@
  *
  * Language resolution order (highest → lowest priority):
  *  1. setLang() call (e.g. from --lang CLI flag)
- *  2. MCP_LAB_LANG environment variable
+ *  2. MCP_WORKBENCH_LANG environment variable
  *  3. Default: "en"
  *
  * Locale data is inlined at build time for browser compatibility.
@@ -27,7 +27,7 @@ export type LocaleDict = Record<string, string>;
 const en: LocaleDict = {
   "cli.run.error.loadSpec": "Failed to load spec: {file}",
   "cli.run.error.runner": "Runner error: {error}",
-  "cli.run.header": "MCP Lab",
+  "cli.run.header": "MCP Workbench",
   "cli.run.label.spec": "Spec:      {file}",
   "cli.run.label.transport": "Transport: {transport}",
   "cli.run.label.tests": "Tests:     {count}",
@@ -62,7 +62,7 @@ const en: LocaleDict = {
 const ko: LocaleDict = {
   "cli.run.error.loadSpec": "스펙 파일 로드 실패: {file}",
   "cli.run.error.runner": "런너 오류: {error}",
-  "cli.run.header": "MCP Lab",
+  "cli.run.header": "MCP Workbench",
   "cli.run.label.spec": "스펙:      {file}",
   "cli.run.label.transport": "전송:      {transport}",
   "cli.run.label.tests": "테스트:    {count}",
@@ -102,7 +102,7 @@ let _lang = FALLBACK;
 
 // Initialize from environment variable (browser-safe guard)
 if (typeof process !== "undefined" && process.env) {
-  const envLang = process.env["MCP_LAB_LANG"];
+  const envLang = process.env["MCP_WORKBENCH_LANG"];
   if (envLang) _lang = SUPPORTED.has(envLang) ? envLang : FALLBACK;
 }
 
