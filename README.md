@@ -33,6 +33,7 @@ MCP Lab fills that gap: **saved tests, regression diffs, and CI-ready assertion 
 - **`mcp-lab run`** — execute YAML-defined test suites with rich assertions
 - **Assertion engine** — `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, and more
 - **Transport support** — `stdio` (local servers), `streamable-http` (remote servers), legacy SSE
+- **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
 - **CI-friendly** — `--json` output, non-zero exit on failure, `--bail` flag
 - **Protocol-accurate** — implements MCP spec `2025-11-25` including capability negotiation, session lifecycle, and notification handling
 
@@ -104,6 +105,12 @@ mcp-lab run tests.yaml
 mcp-lab run tests.yaml --verbose
 mcp-lab run tests.yaml --json > results.json
 mcp-lab run tests.yaml --bail --timeout 5000
+```
+
+Try the included fixture against the demo server:
+
+```bash
+mcp-lab run examples/fixtures/demo-server.yaml --verbose
 ```
 
 ---
@@ -260,6 +267,14 @@ pnpm --filter @mcp-lab/web dev
 ```
 
 Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
+
+To try it with the demo server, enter these values on the Inspect page:
+
+| Field | Value |
+|-------|-------|
+| Transport | stdio |
+| Command | `mcp-lab-demo` |
+| Args | *(leave empty)* |
 
 ![Tool execution](docs/assets/tool-execution.gif)
 
