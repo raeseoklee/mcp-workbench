@@ -31,7 +31,7 @@ export type SessionConfig = StdioConfig | HttpConfig;
 
 function buildSimulator(cfg: SimulatorConfig): ClientSimulator {
   return new ClientSimulator({
-    roots: cfg.roots ? { roots: cfg.roots.map((r) => ({ name: r.name, uri: r.uri })) } : undefined,
+    roots: cfg.roots ? { roots: cfg.roots } : undefined,
     sampling: cfg.sampling?.preset
       ? {
           preset: {

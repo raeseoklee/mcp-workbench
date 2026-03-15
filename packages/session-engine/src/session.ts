@@ -78,6 +78,7 @@ export class Session extends EventEmitter {
   // ─── Lifecycle ──────────────────────────────────────────────────────────────
 
   async connect(): Promise<NegotiatedSession> {
+    this.initializeRequestId = null;
     this.setStatus("connecting");
 
     this.timeline.record({
