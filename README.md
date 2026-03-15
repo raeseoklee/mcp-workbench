@@ -340,6 +340,19 @@ See [docs/plugins.md](docs/plugins.md) for the full plugin guide including how t
 
 ---
 
+## VS Code Extension
+
+The official VS Code extension is in a separate repository: **[mcp-workbench-vscode](https://github.com/raeseoklee/mcp-workbench-vscode)**
+
+- Run specs from the editor title bar or Command Palette
+- Test Results tree view (suite → test → assertion)
+- Failed assertions appear in the Problems panel
+- Configurable CLI path and timeout
+
+See [docs/vscode-extension.md](docs/vscode-extension.md) for details.
+
+---
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
