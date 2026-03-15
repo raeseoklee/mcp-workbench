@@ -115,6 +115,20 @@ Try the included fixture against the demo server:
 mcp-workbench run examples/fixtures/demo-server.yaml --verbose
 ```
 
+### Start the Web UI
+
+MCP Workbench ships a browser-based inspector alongside the CLI. Start both servers in two terminals:
+
+```bash
+# Terminal 1 — API server
+node apps/api/dist/index.js
+
+# Terminal 2 — Web UI (opens at http://localhost:5173)
+pnpm --filter @mcp-workbench/web dev
+```
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser. Enter your server details on the Inspect page to connect and explore tools, resources, prompts, and the live Protocol log.
+
 ---
 
 ## Test Specification Format
@@ -308,6 +322,8 @@ To try it with the demo server, enter these values on the Inspect page:
 The UI supports dark and light mode — toggle with the `☀`/`☾` button in the sidebar.
 
 ![Tool execution — Web UI](docs/assets/tool-execution.gif)
+
+External tools (editor extensions, CI scripts) should rely on the [CLI JSON contract](docs/integration-contract.md).
 
 ---
 

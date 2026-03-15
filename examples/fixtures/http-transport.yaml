@@ -1,0 +1,54 @@
+apiVersion: mcp-workbench.dev/v0alpha1
+
+# ─── HTTP Transport Example ───────────────────────────────────────────────────
+#
+# Tests an MCP server reachable via Streamable HTTP transport.
+#
+# Usage:
+#   mcp-workbench run examples/fixtures/http-transport.yaml
+#
+# For servers behind authentication, export the token first:
+#   export MCP_API_TOKEN=your-token
+# Then reference it in headersFromEnv:
+#   headersFromEnv:
+#     Authorization: MCP_API_TOKEN
+#
+# Note: This fixture targets a hypothetical remote server.
+# Replace the url with your actual server endpoint.
+
+server:
+  transport: streamable-http
+  url: https://your-mcp-server.example.com/mcp
+  # Uncomment to pass auth headers from environment variables:
+  # headersFromEnv:
+  #   Authorization: MCP_API_TOKEN
+
+client:
+  protocolVersion: "2025-11-25"
+
+tests:
+  - id: http-ping
+    description: Server responds to ping over HTTP
+    act:
+      method: ping
+    assert:
+      - kind: status
+        equals: success
+
+  - id: http-tools-list
+    description: Server exposes at least one tool over HTTP
+    act:
+      method: tools/list
+    assert:
+      - kind: status
+        equals: success
+      - kind: notEmpty
+        path: $.tools
+
+  - id: http-resources-list
+    description: Server responds to resources/list (may be empty)
+    act:
+      method: resources/list
+    assert:
+      - kind: status
+        equals: success
