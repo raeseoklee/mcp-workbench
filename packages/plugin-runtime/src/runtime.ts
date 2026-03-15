@@ -1,6 +1,7 @@
 import { importPlugin } from "./loader.js";
 import { Registry } from "./registry.js";
 import { PluginContextImpl } from "./context.js";
+import { loadWorkbenchConfig } from "./config.js";
 import type {
   WorkbenchPlugin,
   CommandContribution,
@@ -11,11 +12,20 @@ import type {
 export class PluginRuntime {
   private readonly registry = new Registry();
 
-  /** Load plugins from a list of package names or local paths. */
+  /**
+   * Load plugins from workbench.config.yaml merged with explicit flag paths.
+   * Deduplicates paths (config first, then flags).
+   */
+  async loadFromConfigAndFlags(flagPlugins: string[] = []): Promise<void> {
+    const config = await loadWorkbenchConfig();
+    const configPlugins = config?.plugins ?? [];
+    const allPlugins = [...configPlugins, ...flagPlugins];
+    if (allPlugins.length > 0) await this.loadPlugins(allPlugins);
+  }
+
+  /** Load plugins from a list of package names or local paths (parallel). */
   async loadPlugins(paths: string[]): Promise<void> {
-    for (const p of paths) {
-      await this.loadPlugin(p);
-    }
+    await Promise.all(paths.map((p) => this.loadPlugin(p)));
   }
 
   /** Load a single plugin from a package name or local path. */

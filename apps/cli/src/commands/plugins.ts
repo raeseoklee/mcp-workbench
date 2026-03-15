@@ -6,12 +6,8 @@ export interface PluginsListOptions {
 }
 
 export async function pluginsListCommand(opts: PluginsListOptions): Promise<void> {
-  const runtime = new PluginRuntime();
-
   const config = await loadWorkbenchConfig();
-  const configPlugins = config?.plugins ?? [];
-  const flagPlugins = opts.plugin ?? [];
-  const allPlugins = [...configPlugins, ...flagPlugins];
+  const allPlugins = [...(config?.plugins ?? []), ...(opts.plugin ?? [])];
 
   if (allPlugins.length === 0) {
     console.log(chalk.dim("  No plugins configured."));
@@ -19,6 +15,7 @@ export async function pluginsListCommand(opts: PluginsListOptions): Promise<void
     return;
   }
 
+  const runtime = new PluginRuntime();
   await runtime.loadPlugins(allPlugins);
 
   const commands = runtime.listCommands();

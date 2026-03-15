@@ -2,7 +2,7 @@ import { loadSpec } from "@mcp-workbench/test-spec";
 import { runSpec } from "../runner.js";
 import type { RunReport, TestResult } from "../runner.js";
 import { t } from "@mcp-workbench/i18n";
-import { PluginRuntime, loadWorkbenchConfig } from "@mcp-workbench/plugin-runtime";
+import { PluginRuntime } from "@mcp-workbench/plugin-runtime";
 import chalk from "chalk";
 
 export interface RunCommandOptions {
@@ -25,13 +25,7 @@ export async function runCommand(
 ): Promise<void> {
   // ── Load plugins (config file + --plugin flags) ──────────────────────────────
   const runtime = new PluginRuntime();
-  const config = await loadWorkbenchConfig();
-  const configPlugins = config?.plugins ?? [];
-  const flagPlugins = opts.plugin ?? [];
-  const allPlugins = [...configPlugins, ...flagPlugins];
-  if (allPlugins.length > 0) {
-    await runtime.loadPlugins(allPlugins);
-  }
+  await runtime.loadFromConfigAndFlags(opts.plugin);
 
   // ── Load spec ───────────────────────────────────────────────────────────────
   let spec;
