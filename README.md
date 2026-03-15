@@ -210,6 +210,7 @@ Options:
   --url <url>          Server URL (HTTP)
   --timeout <ms>       Request timeout
   --json               JSON output
+  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
 ```
 
 ### `mcp-lab run`
@@ -224,7 +225,31 @@ Options:
   --timeout <ms>       Per-request timeout
   --json               JSON output (CI-friendly)
   -v, --verbose        Show all assertion details
+  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
 ```
+
+---
+
+## Internationalization
+
+CLI output is available in multiple languages.
+
+```bash
+# Korean output via flag
+mcp-lab run tests.yaml --lang ko
+
+# Korean output via environment variable
+MCP_LAB_LANG=ko mcp-lab inspect --command mcp-lab-demo
+```
+
+| Locale | Language |
+|--------|----------|
+| `en`   | English (default) |
+| `ko`   | Korean |
+
+Only user-facing CLI messages are translated. JSON output (`--json`), protocol payloads, and assertion keys are always in English.
+
+To add a new locale, see [docs/i18n.md](docs/i18n.md).
 
 ---
 

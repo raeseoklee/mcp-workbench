@@ -26,9 +26,21 @@ importers:
 
   apps/api:
     dependencies:
+      '@mcp-lab/assertions':
+        specifier: workspace:*
+        version: link:../../packages/assertions
+      '@mcp-lab/client-simulator':
+        specifier: workspace:*
+        version: link:../../packages/client-simulator
+      '@mcp-lab/protocol-kernel':
+        specifier: workspace:*
+        version: link:../../packages/protocol-kernel
       '@mcp-lab/session-engine':
         specifier: workspace:*
         version: link:../../packages/session-engine
+      '@mcp-lab/test-spec':
+        specifier: workspace:*
+        version: link:../../packages/test-spec
       '@mcp-lab/transport-http':
         specifier: workspace:*
         version: link:../../packages/transport-http
@@ -66,6 +78,9 @@ importers:
       '@mcp-lab/client-simulator':
         specifier: workspace:*
         version: link:../../packages/client-simulator
+      '@mcp-lab/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@mcp-lab/protocol-kernel':
         specifier: workspace:*
         version: link:../../packages/protocol-kernel
@@ -165,6 +180,18 @@ importers:
       '@mcp-lab/protocol-kernel':
         specifier: workspace:*
         version: link:../protocol-kernel
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.15
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.15)
+
+  packages/i18n:
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
