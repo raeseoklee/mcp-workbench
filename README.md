@@ -50,6 +50,18 @@ pnpm add -g mcp-lab
 
 ## Quick Start
 
+### Try it now (zero setup)
+
+Install the CLI and the bundled demo server, then inspect it:
+
+```bash
+npm install -g mcp-lab @mcp-lab/demo-server
+
+mcp-lab inspect --command mcp-lab-demo
+```
+
+The demo server exposes a weather tool, note resources, and a greeting prompt — everything you need to explore all of MCP Lab's features without writing a single line of server code.
+
 ### Inspect a server
 
 ```bash
