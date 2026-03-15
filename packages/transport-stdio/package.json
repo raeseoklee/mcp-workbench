@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/transport-stdio",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "stdio transport adapter for MCP Workbench",

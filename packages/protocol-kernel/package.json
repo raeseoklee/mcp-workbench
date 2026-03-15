@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/protocol-kernel",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "MCP protocol core: JSON-RPC, initialization, capability negotiation",

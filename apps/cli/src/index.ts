@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import { setLang } from "@mcp-workbench/i18n";
 import { runCommand } from "./commands/run.js";

@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/i18n",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "Lightweight i18n for MCP Workbench — works in both Node.js and browser",
