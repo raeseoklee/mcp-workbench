@@ -1,0 +1,67 @@
+apiVersion: mcp-lab.dev/v0alpha1
+
+# ─── Server ───────────────────────────────────────────────────────────────────
+server:
+  transport: stdio
+  command: node
+  args: ["../../examples/demo-server/dist/index.js"]
+  cwd: examples/demo-server
+
+# ─── Client capabilities ──────────────────────────────────────────────────────
+# Declare which server→client capabilities the simulated client supports.
+client:
+  clientInfo:
+    name: mcp-lab-simulator
+    version: "0.1.0"
+  capabilities:
+    roots: {}
+    sampling: {}
+
+# ─── Fixtures ─────────────────────────────────────────────────────────────────
+# Static data the client simulator returns when the server calls back.
+fixtures:
+  roots:
+    - uri: "file:///workspace/project-alpha"
+      name: project-alpha
+    - uri: "file:///workspace/project-beta"
+      name: project-beta
+
+  sampling:
+    role: assistant
+    content:
+      type: text
+      text: "This is a simulated LLM response from mcp-lab."
+    model: mock-model
+    stopReason: endTurn
+
+# ─── Tests ────────────────────────────────────────────────────────────────────
+tests:
+  # Test 1: The server can call roots/list and receive the fixture roots.
+  - id: roots-fixture-returned
+    description: list_roots tool returns the fixture roots
+    act:
+      method: tools/call
+      tool: list_roots
+    assert:
+      - kind: contains
+        path: content[0].text
+        value: "project-alpha"
+      - kind: contains
+        path: content[0].text
+        value: "project-beta"
+
+  # Test 2: Regular tools still work alongside the simulator.
+  - id: weather-seoul
+    description: get_weather returns Seoul data (simulator does not interfere)
+    act:
+      method: tools/call
+      tool: get_weather
+      args:
+        city: Seoul
+    assert:
+      - kind: contains
+        path: content[0].text
+        value: "Seoul"
+      - kind: equals
+        path: isError
+        value: null

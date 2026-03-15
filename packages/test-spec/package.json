@@ -1,0 +1,46 @@
+{
+  "name": "@mcp-lab/test-spec",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "YAML test specification format: parser, validator, and types",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@mcp-lab/assertions": "workspace:*",
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "@types/node": "^22.0.0"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "testing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/mcp-lab.git"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "dist"
+  ]
+}

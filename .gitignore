@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.js.map
+*.d.ts.map
+.env
+.env.*
+!.env.example
+
+# MCP Lab runtime artifacts
+.mcp-lab/
+
+# Editor
+.DS_Store
+.idea/
+.vscode/settings.json
+*.swp
+
+# Test outputs
+coverage/

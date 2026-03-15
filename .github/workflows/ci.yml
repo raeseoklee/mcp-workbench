@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Integration — inspect demo server
+        run: |
+          node apps/cli/dist/index.js inspect \
+            --command node \
+            --args "examples/demo-server/dist/index.js" \
+            --json
+
+      - name: Integration — run test suite
+        run: |
+          node apps/cli/dist/index.js run \
+            examples/fixtures/demo-server.yaml \
+            --verbose
+
+      - name: Integration — snapshot baseline (create)
+        run: |
+          node apps/cli/dist/index.js run \
+            examples/fixtures/snapshot-example.yaml \
+            --update-snapshots
+
+      - name: Integration — snapshot baseline (compare)
+        run: |
+          node apps/cli/dist/index.js run \
+            examples/fixtures/snapshot-example.yaml \
+            --verbose
+
+      - name: Integration — JSON output
+        run: |
+          node apps/cli/dist/index.js run \
+            examples/fixtures/demo-server.yaml \
+            --json | python3 -c "
+          import json, sys
+          r = json.load(sys.stdin)
+          assert r['passed'] == r['total'], f\"Not all tests passed: {r}\"
+          print(f\"All {r['total']} tests passed\")
+          "

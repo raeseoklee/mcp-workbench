@@ -1,0 +1,50 @@
+apiVersion: mcp-lab.dev/v0alpha1
+
+# Snapshot / baseline example
+#
+# First run (or with --update-snapshots):  saves the result.
+# Subsequent runs:                          compares and fails on diff.
+#
+# Usage:
+#   mcp-lab run examples/fixtures/snapshot-example.yaml --update-snapshots
+#   mcp-lab run examples/fixtures/snapshot-example.yaml
+
+server:
+  transport: stdio
+  command: node
+  args:
+    - examples/demo-server/dist/index.js
+
+tests:
+  - id: tools-list-snapshot
+    description: Snapshot of the full tools list
+    act:
+      method: tools/list
+    assert:
+      - kind: snapshot
+        name: tools-list
+        # No ignorePaths needed here — tools list is stable
+
+  - id: get-weather-snapshot
+    description: Snapshot of get_weather result (Seoul)
+    act:
+      method: tools/call
+      tool: get_weather
+      args:
+        city: Seoul
+    assert:
+      - kind: executionError
+        equals: false
+      - kind: snapshot
+        name: get-weather-seoul
+        # ignorePaths could be used here for timestamps if the server added them:
+        # ignorePaths:
+        #   - $.meta.timestamp
+
+  - id: resources-list-snapshot
+    description: Snapshot of resource list
+    act:
+      method: resources/list
+    assert:
+      - kind: snapshot
+        name: resources-list

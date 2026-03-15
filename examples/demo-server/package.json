@@ -1,0 +1,19 @@
+{
+  "name": "@mcp-lab/demo-server",
+  "version": "0.1.0",
+  "description": "Demo MCP server for MCP Lab examples",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}

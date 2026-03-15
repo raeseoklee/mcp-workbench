@@ -1,0 +1,37 @@
+{
+  "name": "@mcp-lab/client-simulator",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "MCP Lab client capability simulator — roots, sampling, elicitation",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@mcp-lab/protocol-kernel": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "@types/node": "^22.0.0"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["mcp", "model-context-protocol", "testing", "client-simulator"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/mcp-lab.git"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "files": ["dist"]
+}

@@ -1,0 +1,157 @@
+apiVersion: mcp-lab.dev/v0alpha1
+
+server:
+  transport: stdio
+  command: node
+  args:
+    - examples/demo-server/dist/index.js
+
+client:
+  protocolVersion: "2025-11-25"
+  capabilities: {}
+
+tests:
+  # ─── Handshake ─────────────────────────────────────────────────────────────
+
+  - id: ping
+    description: Server responds to ping
+    act:
+      method: ping
+    assert:
+      - kind: status
+        equals: success
+
+  # ─── Tools ─────────────────────────────────────────────────────────────────
+
+  - id: tools-list
+    description: Server advertises at least one tool
+    act:
+      method: tools/list
+    assert:
+      - kind: status
+        equals: success
+      - kind: notEmpty
+        path: $.tools
+      - kind: jsonpath
+        path: $.tools[*].name
+        contains: get_weather
+
+  - id: get-weather-seoul
+    description: get_weather returns text content for a known city
+    act:
+      method: tools/call
+      tool: get_weather
+      args:
+        city: Seoul
+    assert:
+      - kind: status
+        equals: success
+      - kind: executionError
+        equals: false
+      - kind: contentType
+        contains: text
+      - kind: jsonpath
+        path: $.content[0].text
+        matches: "Seoul"
+
+  - id: get-weather-invalid-city
+    description: get_weather sets isError for unknown city
+    act:
+      method: tools/call
+      tool: get_weather
+      args:
+        city: UnknownCity
+    assert:
+      - kind: executionError
+        equals: true
+      - kind: protocolError
+        equals: false
+
+  - id: get-weather-bad-type
+    description: get_weather sets isError when city is wrong type
+    act:
+      method: tools/call
+      tool: get_weather
+      args:
+        city: 12345
+    assert:
+      - kind: executionError
+        equals: true
+      - kind: protocolError
+        equals: false
+
+  # ─── Resources ─────────────────────────────────────────────────────────────
+
+  - id: resources-list
+    description: Server lists note resources
+    act:
+      method: resources/list
+    assert:
+      - kind: status
+        equals: success
+      - kind: notEmpty
+        path: $.resources
+      - kind: jsonpath
+        path: $.resources[*].uri
+        contains: "note://welcome"
+
+  - id: read-welcome-note
+    description: Read the welcome note resource
+    act:
+      method: resources/read
+      uri: "note://welcome"
+    assert:
+      - kind: status
+        equals: success
+      - kind: jsonpath
+        path: $.contents[0].mimeType
+        equals: "text/plain"
+      - kind: jsonpath
+        path: $.contents[0].text
+        matches: "Welcome"
+
+  # ─── Prompts ───────────────────────────────────────────────────────────────
+
+  - id: prompts-list
+    description: Server advertises the greet prompt
+    act:
+      method: prompts/list
+    assert:
+      - kind: status
+        equals: success
+      - kind: jsonpath
+        path: $.prompts[*].name
+        contains: greet
+
+  - id: get-greet-casual
+    description: greet prompt returns a casual message
+    act:
+      method: prompts/get
+      name: greet
+      args:
+        name: Ada
+        style: casual
+    assert:
+      - kind: status
+        equals: success
+      - kind: jsonpath
+        path: $.messages[0].role
+        equals: user
+      - kind: jsonpath
+        path: $.messages[0].content.text
+        matches: "Ada"
+
+  - id: get-greet-formal
+    description: greet prompt with formal style
+    act:
+      method: prompts/get
+      name: greet
+      args:
+        name: Dr. Smith
+        style: formal
+    assert:
+      - kind: status
+        equals: success
+      - kind: jsonpath
+        path: $.messages[0].content.text
+        matches: "formal|Good day|Dr"

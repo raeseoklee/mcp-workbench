@@ -1,0 +1,27 @@
+{
+  "name": "mcp-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server testing, validation, and regression platform",
+  "keywords": ["mcp", "model-context-protocol", "testing", "developer-tools"],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r --parallel dev",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "prettier": "^3.4.0",
+    "eslint": "^9.0.0"
+  }
+}
