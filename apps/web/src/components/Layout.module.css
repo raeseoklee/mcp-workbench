@@ -11,8 +11,8 @@
   flex-direction: column;
   width: 220px;
   flex-shrink: 0;
-  background: #161b27;
-  border-right: 1px solid #252d3d;
+  background: var(--wb-bg-surface);
+  border-right: 1px solid var(--wb-border);
   padding: 0;
 }
 
@@ -21,19 +21,19 @@
   align-items: center;
   gap: 10px;
   padding: 20px 16px 18px;
-  border-bottom: 1px solid #252d3d;
+  border-bottom: 1px solid var(--wb-border);
 }
 
 .logoIcon {
   font-size: 22px;
-  color: #7c6af0;
+  color: var(--wb-accent);
 }
 
 .logoText {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #e2e8f0;
+  color: var(--wb-text);
 }
 
 /* ─── Server badge ───────────────────────────────────────────────────────── */
@@ -42,20 +42,20 @@
   align-items: center;
   gap: 7px;
   padding: 8px 16px;
-  border-bottom: 1px solid #252d3d;
+  border-bottom: 1px solid var(--wb-border);
 }
 
 .serverDot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #4ade80;
+  background: var(--wb-success);
   flex-shrink: 0;
 }
 
 .serverName {
   font-size: 12px;
-  color: #4ade80;
+  color: var(--wb-success);
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -77,31 +77,51 @@
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 13.5px;
-  color: #94a3b8;
+  color: var(--wb-text-2);
   text-decoration: none;
   transition: background 0.12s, color 0.12s;
 }
 
 .navLink:hover {
-  background: #1f2b3e;
-  color: #e2e8f0;
+  background: var(--wb-bg-hover);
+  color: var(--wb-text);
 }
 
 .navLinkActive {
-  background: #1f2b3e;
-  color: #a78bfa;
+  background: var(--wb-bg-hover);
+  color: var(--wb-accent-text);
   font-weight: 500;
 }
 
 /* ─── Sidebar footer ─────────────────────────────────────────────────────── */
 .sidebarFooter {
-  padding: 12px 16px;
-  border-top: 1px solid #252d3d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid var(--wb-border);
 }
 
 .version {
   font-size: 11px;
-  color: #4a5568;
+  color: var(--wb-text-4);
+}
+
+.themeToggle {
+  background: transparent;
+  border: 1px solid var(--wb-border);
+  border-radius: 6px;
+  color: var(--wb-text-3);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 3px 8px;
+  line-height: 1.4;
+  transition: background 0.12s, color 0.12s;
+}
+
+.themeToggle:hover {
+  background: var(--wb-bg-hover);
+  color: var(--wb-text);
 }
 
 /* ─── Main ───────────────────────────────────────────────────────────────── */

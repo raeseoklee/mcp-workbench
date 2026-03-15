@@ -5,13 +5,13 @@
 .title {
   font-size: 22px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--wb-text);
   margin-bottom: 8px;
 }
 
 .description {
   font-size: 14px;
-  color: #64748b;
+  color: var(--wb-text-3);
   margin-bottom: 36px;
   line-height: 1.6;
 }
@@ -23,9 +23,9 @@
   justify-content: center;
   gap: 12px;
   padding: 60px 24px;
-  border: 1px dashed #252d3d;
+  border: 1px dashed var(--wb-border);
   border-radius: 10px;
-  color: #334155;
+  color: var(--wb-text-5);
 }
 
 .placeholderIcon {
