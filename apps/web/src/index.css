@@ -1,0 +1,79 @@
+/* ─── Theme tokens ────────────────────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  --wb-bg:               #0f1117;
+  --wb-bg-surface:       #161b27;
+  --wb-bg-surface-deep:  #0d1117;
+  --wb-bg-badge:         #1a2233;
+  --wb-bg-hover:         #1f2b3e;
+  --wb-bg-hover-subtle:  #1c2234;
+  --wb-bg-tab-active:    #1f1a40;
+  --wb-border:           #252d3d;
+  --wb-border-hover:     #2d3a52;
+  --wb-border-subtle:    #1e2535;
+  --wb-text:             #e2e8f0;
+  --wb-text-2:           #94a3b8;
+  --wb-text-3:           #64748b;
+  --wb-text-4:           #4a5568;
+  --wb-text-5:           #334155;
+  --wb-text-editor:      #c9d1d9;
+  --wb-accent:           #7c6af0;
+  --wb-accent-text:      #a78bfa;
+  --wb-accent-hover:     #6d5ce0;
+  --wb-success:          #4ade80;
+  --wb-success-bg:       #1a4a28;
+  --wb-success-bg-deep:  #0d1f14;
+  --wb-success-bg-badge: #1a2c1a;
+  --wb-error:            #f87171;
+  --wb-error-light:      #fca5a5;
+  --wb-error-bg:         #2a1010;
+  --wb-error-bg-deep:    #1f0d0d;
+  --wb-error-bg-badge:   #4a1a1a;
+  --wb-error-border:     #5a1f1f;
+  --wb-warning:          #fb923c;
+  --wb-disconnect-border:#3d2f2f;
+  --wb-disconnect-hover: #2a1a1a;
+}
+
+:root[data-theme="light"] {
+  --wb-bg:               #f6f8fb;
+  --wb-bg-surface:       #ffffff;
+  --wb-bg-surface-deep:  #f1f5f9;
+  --wb-bg-badge:         #f0f4f8;
+  --wb-bg-hover:         #e8eef5;
+  --wb-bg-hover-subtle:  #eef2f7;
+  --wb-bg-tab-active:    #ede9fe;
+  --wb-border:           #e2e8f0;
+  --wb-border-hover:     #cbd5e1;
+  --wb-border-subtle:    #eef2f7;
+  --wb-text:             #1e293b;
+  --wb-text-2:           #475569;
+  --wb-text-3:           #64748b;
+  --wb-text-4:           #94a3b8;
+  --wb-text-5:           #94a3b8;
+  --wb-text-editor:      #334155;
+  --wb-accent:           #7c6af0;
+  --wb-accent-text:      #6d5ce0;
+  --wb-accent-hover:     #5b4bc4;
+  --wb-success:          #16a34a;
+  --wb-success-bg:       #dcfce7;
+  --wb-success-bg-deep:  #f0fdf4;
+  --wb-success-bg-badge: #dcfce7;
+  --wb-error:            #dc2626;
+  --wb-error-light:      #ef4444;
+  --wb-error-bg:         #fee2e2;
+  --wb-error-bg-deep:    #fef2f2;
+  --wb-error-bg-badge:   #fee2e2;
+  --wb-error-border:     #fca5a5;
+  --wb-warning:          #ea580c;
+  --wb-disconnect-border:#fca5a5;
+  --wb-disconnect-hover: #fee2e2;
+}
+
+/* ─── Base reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--wb-bg);
+  color: var(--wb-text);
+  transition: background 0.15s, color 0.15s;
+}

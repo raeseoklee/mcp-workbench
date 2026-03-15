@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useSession } from "../context/SessionContext.js";
+import { useTheme } from "../context/ThemeContext.js";
 import styles from "./Layout.module.css";
 
 const NAV_ITEMS = [
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export default function Layout() {
   const { session } = useSession();
+  const { theme, toggle } = useTheme();
 
   return (
     <div className={styles.shell}>
@@ -45,6 +47,13 @@ export default function Layout() {
         </nav>
         <footer className={styles.sidebarFooter}>
           <span className={styles.version}>v0.1.0</span>
+          <button
+            className={styles.themeToggle}
+            onClick={toggle}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? "☀" : "☾"}
+          </button>
         </footer>
       </aside>
       <main className={styles.main}>

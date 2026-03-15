@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { SessionProvider } from "./context/SessionContext.js";
+import { ThemeProvider } from "./context/ThemeContext.js";
 import Layout from "./components/Layout.js";
 import OverviewPage from "./pages/OverviewPage.js";
 import InspectPage from "./pages/InspectPage.js";
@@ -11,6 +12,7 @@ import TestResultsPage from "./pages/TestResultsPage.js";
 
 export default function App() {
   return (
+    <ThemeProvider>
     <SessionProvider>
       <Routes>
         <Route element={<Layout />}>
@@ -25,5 +27,6 @@ export default function App() {
         </Route>
       </Routes>
     </SessionProvider>
+    </ThemeProvider>
   );
 }

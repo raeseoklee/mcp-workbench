@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MCP Workbench</title>
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; color: #e2e8f0; }
+      /* Prevent flash of wrong theme before JS loads */
+      body { background: #0f1117; color: #e2e8f0; }
     </style>
+    <script>
+      try {
+        var t = localStorage.getItem('wb-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light') document.body.style.cssText = 'background:#f6f8fb;color:#1e293b';
+      } catch(e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

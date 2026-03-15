@@ -4,6 +4,6 @@
   gap: 10px;
   padding: 40px 0;
 }
-.text { font-size: 14px; color: #64748b; }
-.link { font-size: 13.5px; color: #7c6af0; text-decoration: none; }
+.text { font-size: 14px; color: var(--wb-text-3); }
+.link { font-size: 13.5px; color: var(--wb-accent); text-decoration: none; }
 .link:hover { text-decoration: underline; }
