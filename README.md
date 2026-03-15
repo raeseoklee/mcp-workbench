@@ -305,42 +305,6 @@ To try it with the demo server, enter these values on the Inspect page:
 
 ---
 
-## Previously known as MCP Lab
-
-This project was previously called **MCP Lab** (`mcp-lab`). It has been renamed to **MCP Workbench** (`mcp-workbench`).
-
-If you have an existing installation, update it as follows:
-
-```bash
-# Remove the old CLI
-npm uninstall -g mcp-lab
-
-# Install the new CLI
-npm install -g mcp-workbench
-```
-
-Update any saved YAML spec files:
-
-```yaml
-# Before
-apiVersion: mcp-lab.dev/v0alpha1
-
-# After
-apiVersion: mcp-workbench.dev/v0alpha1
-```
-
-Update any environment variable references:
-
-```bash
-# Before
-MCP_LAB_LANG=ko mcp-lab run tests.yaml
-
-# After
-MCP_WORKBENCH_LANG=ko mcp-workbench run tests.yaml
-```
-
----
-
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
