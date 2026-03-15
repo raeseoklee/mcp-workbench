@@ -97,6 +97,46 @@ export interface PromptResult {
   messages: PromptMessage[];
 }
 
+// ─── Test Runs ───────────────────────────────────────────────────────────────
+
+export type TestStatus = "passed" | "failed" | "skipped" | "error";
+
+export interface AssertionResult {
+  assertion: { kind: string; label?: string; [key: string]: unknown };
+  passed: boolean;
+  actual: unknown;
+  message?: string;
+  diff?: string;
+}
+
+export interface TestResult {
+  testId: string;
+  description?: string;
+  status: TestStatus;
+  durationMs: number;
+  assertionResults: AssertionResult[];
+  error?: string;
+  rawResult?: unknown;
+}
+
+export interface RunReport {
+  passed: number;
+  failed: number;
+  skipped: number;
+  errors: number;
+  total: number;
+  durationMs: number;
+  snapshotsUpdated: number;
+  tests: TestResult[];
+}
+
+export interface RunOptions {
+  tags?: string[];
+  ids?: string[];
+  bail?: boolean;
+  timeoutMs?: number;
+}
+
 // ─── Timeline ────────────────────────────────────────────────────────────────
 
 export interface TimelineEvent {

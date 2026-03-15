@@ -4,6 +4,7 @@ import type {
   ResourceInfo, ResourceContent,
   PromptInfo, PromptResult,
   TimelineEvent,
+  RunReport, RunOptions,
 } from "./types.js";
 
 const BASE = "/api";
@@ -76,5 +77,15 @@ export const api = {
       request<TimelineEvent[]>(
         `/sessions/${sessionId}/timeline${since ? `?since=${since}` : ""}`
       ),
+  },
+
+  // ─── Runs ────────────────────────────────────────────────────────────────────
+
+  runs: {
+    submit: (body: { specContent?: string; specFile?: string; options?: RunOptions }) =>
+      request<RunReport>("/runs", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
   },
 };
