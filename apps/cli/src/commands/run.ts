@@ -2,6 +2,7 @@ import { loadSpec } from "@mcp-workbench/test-spec";
 import { runSpec } from "../runner.js";
 import type { RunReport, TestResult } from "../runner.js";
 import { t } from "@mcp-workbench/i18n";
+import { PluginRuntime } from "@mcp-workbench/plugin-runtime";
 import chalk from "chalk";
 
 export interface RunCommandOptions {
@@ -13,12 +14,22 @@ export interface RunCommandOptions {
   verbose?: boolean;
   updateSnapshots?: boolean;
   snapshotsDir?: string;
+  plugin?: string[];
+  reporter?: string;
+  reporterOutput?: string;
 }
 
 export async function runCommand(
   specFile: string,
   opts: RunCommandOptions,
 ): Promise<void> {
+  // ── Load plugins ────────────────────────────────────────────────────────────
+  const runtime = new PluginRuntime();
+  if (opts.plugin && opts.plugin.length > 0) {
+    await runtime.loadPlugins(opts.plugin);
+  }
+
+  // ── Load spec ───────────────────────────────────────────────────────────────
   let spec;
   try {
     spec = loadSpec(specFile);
@@ -39,6 +50,7 @@ export async function runCommand(
     console.log();
   }
 
+  // ── Run spec ─────────────────────────────────────────────────────────────────
   let report: RunReport;
   try {
     report = await runSpec(spec, {
@@ -55,10 +67,29 @@ export async function runCommand(
     process.exit(1);
   }
 
+  // ── Output ───────────────────────────────────────────────────────────────────
   if (opts.json) {
     console.log(JSON.stringify(report, null, 2));
   } else {
     printReport(report, opts.verbose ?? false);
+  }
+
+  // ── Reporter plugins ─────────────────────────────────────────────────────────
+  if (opts.reporter) {
+    const reporter = runtime.getReporter(opts.reporter);
+    if (!reporter) {
+      console.error(chalk.red(`✗ Reporter "${opts.reporter}" not found. Did you load the plugin with --plugin?`));
+    } else {
+      try {
+        await reporter.generate({
+          report,
+          specFile,
+          outputPath: opts.reporterOutput,
+        });
+      } catch (err) {
+        console.error(chalk.red(`✗ Reporter "${opts.reporter}" failed: ${err instanceof Error ? err.message : String(err)}`));
+      }
+    }
   }
 
   const exitCode = report.failed + report.errors > 0 ? 1 : 0;

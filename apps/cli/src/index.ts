@@ -32,6 +32,9 @@ program
   .option("-v, --verbose", "Show all assertion details", false)
   .option("-u, --update-snapshots", "Write/overwrite snapshot baselines", false)
   .option("--snapshots-dir <dir>", "Directory for snapshot files (default: .mcp-workbench/snapshots)")
+  .option("--plugin <path>", "Load a plugin (repeatable)", (v: string, prev: string[]) => [...prev, v], [] as string[])
+  .option("--reporter <name>", "Reporter plugin to invoke after tests (e.g. html)")
+  .option("--reporter-output <path>", "Output path passed to the reporter")
   .action(runCommand);
 
 // ─── inspect ─────────────────────────────────────────────────────────────────
