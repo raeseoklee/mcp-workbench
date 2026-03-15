@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/transport-http",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "Streamable HTTP transport adapter for MCP Workbench",

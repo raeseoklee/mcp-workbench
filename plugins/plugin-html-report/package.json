@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/plugin-html-report",
+  "private": true,
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench plugin — generates a self-contained HTML test report",

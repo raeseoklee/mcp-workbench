@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/plugin-junit",
+  "private": true,
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench plugin — generates JUnit XML test report for CI systems",

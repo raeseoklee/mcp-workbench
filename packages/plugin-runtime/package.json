@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/plugin-runtime",
+  "private": true,
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench Plugin Runtime — discovers, loads, and registers plugins",
