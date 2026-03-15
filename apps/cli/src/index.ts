@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { setLang } from "@mcp-lab/i18n";
 import { runCommand } from "./commands/run.js";
 import { inspectCommand } from "./commands/inspect.js";
 
@@ -8,7 +9,15 @@ const program = new Command();
 program
   .name("mcp-lab")
   .description("MCP server testing, validation, and regression platform")
-  .version("0.1.0");
+  .version("0.1.0")
+  .option(
+    "--lang <locale>",
+    "Output language: en | ko  (env: MCP_LAB_LANG)",
+  )
+  .hook("preAction", () => {
+    const lang = (program.opts() as { lang?: string }).lang;
+    if (lang) setLang(lang);
+  });
 
 // ─── run ─────────────────────────────────────────────────────────────────────
 

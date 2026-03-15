@@ -1,6 +1,7 @@
 import { loadSpec } from "@mcp-lab/test-spec";
 import { runSpec } from "../runner.js";
 import type { RunReport, TestResult } from "../runner.js";
+import { t } from "@mcp-lab/i18n";
 import chalk from "chalk";
 
 export interface RunCommandOptions {
@@ -22,18 +23,18 @@ export async function runCommand(
   try {
     spec = loadSpec(specFile);
   } catch (err) {
-    console.error(chalk.red(`✗ Failed to load spec: ${specFile}`));
+    console.error(chalk.red(`✗ ${t("cli.run.error.loadSpec", { file: specFile })}`));
     console.error(chalk.dim((err as Error).message));
     process.exit(1);
   }
 
   if (!opts.json) {
-    console.log(chalk.bold("\n  MCP Lab\n"));
-    console.log(chalk.dim(`  Spec:      ${specFile}`));
-    console.log(chalk.dim(`  Transport: ${spec.server.transport}`));
-    console.log(chalk.dim(`  Tests:     ${spec.tests.length}`));
+    console.log(chalk.bold(`\n  ${t("cli.run.header")}\n`));
+    console.log(chalk.dim(`  ${t("cli.run.label.spec", { file: specFile })}`));
+    console.log(chalk.dim(`  ${t("cli.run.label.transport", { transport: spec.server.transport })}`));
+    console.log(chalk.dim(`  ${t("cli.run.label.tests", { count: spec.tests.length })}`));
     if (opts.updateSnapshots) {
-      console.log(chalk.yellow(`  Mode:      update snapshots`));
+      console.log(chalk.yellow(`  ${t("cli.run.label.mode.updateSnapshots")}`));
     }
     console.log();
   }
@@ -49,7 +50,7 @@ export async function runCommand(
       snapshotsDir: opts.snapshotsDir,
     });
   } catch (err) {
-    console.error(chalk.red(`\n  ✗ Runner error: ${(err as Error).message}`));
+    console.error(chalk.red(`\n  ✗ ${t("cli.run.error.runner", { error: (err as Error).message })}`));
     if (opts.verbose) console.error(err);
     process.exit(1);
   }
@@ -73,9 +74,9 @@ function printReport(report: RunReport, verbose: boolean): void {
   const summary = formatSummary(report);
   console.log(summary);
   if (report.snapshotsUpdated > 0) {
-    console.log(chalk.yellow(`  Snapshots: ${report.snapshotsUpdated} written`));
+    console.log(chalk.yellow(`  ${t("cli.run.label.snapshots", { n: report.snapshotsUpdated })}`));
   }
-  console.log(chalk.dim(`  Duration:  ${report.durationMs}ms\n`));
+  console.log(chalk.dim(`  ${t("cli.run.label.duration", { ms: report.durationMs })}\n`));
 }
 
 function printTestResult(result: TestResult, verbose: boolean): void {
@@ -94,12 +95,12 @@ function printTestResult(result: TestResult, verbose: boolean): void {
   if (verbose || result.status === "failed") {
     for (const ar of result.assertionResults) {
       if (!ar.passed) {
-        const msg = ar.message ?? `assertion "${ar.assertion.kind}" failed`;
+        const msg = ar.message ?? t("cli.run.assertion.defaultFail", { kind: ar.assertion.kind });
         console.log(chalk.red(`    ✗ ${ar.assertion.label ?? ar.assertion.kind}: ${msg}`));
         if (ar.diff) {
           console.log(chalk.red(ar.diff));
         } else if (ar.actual !== undefined) {
-          console.log(chalk.dim(`      actual: ${JSON.stringify(ar.actual)}`));
+          console.log(chalk.dim(`      ${t("cli.run.assertion.actual", { value: JSON.stringify(ar.actual) })}`));
         }
       } else if (verbose) {
         const note = ar.message ? chalk.dim(` (${ar.message})`) : "";
@@ -122,13 +123,14 @@ function statusIcon(status: TestResult["status"]): string {
 
 function formatSummary(report: RunReport): string {
   const parts: string[] = [];
-  if (report.passed)  parts.push(chalk.green(`${report.passed} passed`));
-  if (report.failed)  parts.push(chalk.red(`${report.failed} failed`));
-  if (report.errors)  parts.push(chalk.red(`${report.errors} errors`));
-  if (report.skipped) parts.push(chalk.yellow(`${report.skipped} skipped`));
-  parts.push(chalk.dim(`${report.total} total`));
+  if (report.passed)  parts.push(chalk.green(`${report.passed} ${t("cli.run.summary.passed")}`));
+  if (report.failed)  parts.push(chalk.red(`${report.failed} ${t("cli.run.summary.failed")}`));
+  if (report.errors)  parts.push(chalk.red(`${report.errors} ${t("cli.run.summary.errors")}`));
+  if (report.skipped) parts.push(chalk.yellow(`${report.skipped} ${t("cli.run.summary.skipped")}`));
+  parts.push(chalk.dim(`${report.total} ${t("cli.run.summary.total")}`));
 
   const allGood = report.failed === 0 && report.errors === 0;
-  const header = allGood ? chalk.green("  Tests:") : chalk.red("  Tests:");
+  const label = `  ${t("cli.run.summary.tests")}`;
+  const header = allGood ? chalk.green(label) : chalk.red(label);
   return `${header} ${parts.join(chalk.dim(", "))}`;
 }

@@ -5,6 +5,7 @@
 import { Session } from "@mcp-lab/session-engine";
 import { StdioTransport } from "@mcp-lab/transport-stdio";
 import { HttpTransport } from "@mcp-lab/transport-http";
+import { t } from "@mcp-lab/i18n";
 import chalk from "chalk";
 
 export interface InspectCommandOptions {
@@ -22,23 +23,23 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
   let rawTransport;
   if (transport === "stdio") {
     if (!opts.command) {
-      console.error(chalk.red("--command is required for stdio transport"));
+      console.error(chalk.red(t("cli.inspect.error.noCommand")));
       process.exit(1);
     }
-    const t = new StdioTransport({
+    const tr = new StdioTransport({
       command: opts.command,
       args: opts.args?.split(" ").filter(Boolean),
     });
-    await t.connect();
-    rawTransport = t;
+    await tr.connect();
+    rawTransport = tr;
   } else {
     if (!opts.url) {
-      console.error(chalk.red("--url is required for HTTP transport"));
+      console.error(chalk.red(t("cli.inspect.error.noUrl")));
       process.exit(1);
     }
-    const t = new HttpTransport({ url: opts.url });
-    await t.connect();
-    rawTransport = t;
+    const tr = new HttpTransport({ url: opts.url });
+    await tr.connect();
+    rawTransport = tr;
   }
 
   const session = new Session(rawTransport, {
@@ -53,16 +54,16 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
       return;
     }
 
-    console.log(chalk.bold("\n  Server Info\n"));
-    console.log(`  Name:     ${chalk.cyan(negotiated.serverInfo.name)}`);
-    console.log(`  Version:  ${chalk.cyan(negotiated.serverInfo.version)}`);
-    console.log(`  Protocol: ${chalk.cyan(negotiated.protocolVersion)}`);
+    console.log(chalk.bold(`\n  ${t("cli.inspect.header.serverInfo")}\n`));
+    console.log(`  ${t("cli.inspect.label.name")} ${chalk.cyan(negotiated.serverInfo.name)}`);
+    console.log(`  ${t("cli.inspect.label.version")} ${chalk.cyan(negotiated.serverInfo.version)}`);
+    console.log(`  ${t("cli.inspect.label.protocol")} ${chalk.cyan(negotiated.protocolVersion)}`);
 
     if (negotiated.serverInstructions) {
-      console.log(`\n  Instructions:\n  ${chalk.dim(negotiated.serverInstructions)}`);
+      console.log(`\n  ${t("cli.inspect.label.instructions")}\n  ${chalk.dim(negotiated.serverInstructions)}`);
     }
 
-    console.log(chalk.bold("\n  Capabilities\n"));
+    console.log(chalk.bold(`\n  ${t("cli.inspect.header.capabilities")}\n`));
     const caps = negotiated.serverCapabilities;
 
     printCap("tools", caps.tools, [
@@ -81,10 +82,10 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
     // Fetch capability details
     if (caps.tools) {
       const { tools } = await session.listTools();
-      console.log(chalk.bold(`\n  Tools (${tools.length})\n`));
+      console.log(chalk.bold(`\n  ${t("cli.inspect.header.tools", { count: tools.length })}\n`));
       for (const tool of tools) {
-        const risk = tool.annotations?.destructiveHint ? chalk.red(" [destructive]") : "";
-        const readonly = tool.annotations?.readOnlyHint ? chalk.dim(" [read-only]") : "";
+        const risk = tool.annotations?.destructiveHint ? chalk.red(` ${t("cli.inspect.annotation.destructive")}`) : "";
+        const readonly = tool.annotations?.readOnlyHint ? chalk.dim(` ${t("cli.inspect.annotation.readonly")}`) : "";
         console.log(`  ${chalk.cyan(tool.name)}${risk}${readonly}`);
         if (tool.description) console.log(`    ${chalk.dim(tool.description)}`);
       }
@@ -92,7 +93,7 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
 
     if (caps.resources) {
       const { resources } = await session.listResources();
-      console.log(chalk.bold(`\n  Resources (${resources.length})\n`));
+      console.log(chalk.bold(`\n  ${t("cli.inspect.header.resources", { count: resources.length })}\n`));
       for (const r of resources) {
         console.log(`  ${chalk.cyan(r.uri)}`);
         if (r.name !== r.uri) console.log(`    ${chalk.dim(r.name)}`);
@@ -101,7 +102,7 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
 
     if (caps.prompts) {
       const { prompts } = await session.listPrompts();
-      console.log(chalk.bold(`\n  Prompts (${prompts.length})\n`));
+      console.log(chalk.bold(`\n  ${t("cli.inspect.header.prompts", { count: prompts.length })}\n`));
       for (const p of prompts) {
         console.log(`  ${chalk.cyan(p.name)}`);
         if (p.description) console.log(`    ${chalk.dim(p.description)}`);

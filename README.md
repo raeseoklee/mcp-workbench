@@ -11,6 +11,8 @@ Test, inspect, and validate [Model Context Protocol](https://modelcontextprotoco
 MCP Lab = Inspector + Contract Test + Regression Diff + CI Runner
 ```
 
+![MCP Lab demo](docs/assets/demo.gif)
+
 ---
 
 ## Why MCP Lab?
@@ -31,6 +33,7 @@ MCP Lab fills that gap: **saved tests, regression diffs, and CI-ready assertion 
 - **`mcp-lab run`** — execute YAML-defined test suites with rich assertions
 - **Assertion engine** — `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, and more
 - **Transport support** — `stdio` (local servers), `streamable-http` (remote servers), legacy SSE
+- **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
 - **CI-friendly** — `--json` output, non-zero exit on failure, `--bail` flag
 - **Protocol-accurate** — implements MCP spec `2025-11-25` including capability negotiation, session lifecycle, and notification handling
 
@@ -47,6 +50,18 @@ pnpm add -g mcp-lab
 ---
 
 ## Quick Start
+
+### Try it now (zero setup)
+
+Install the CLI and the bundled demo server, then inspect it:
+
+```bash
+npm install -g mcp-lab @mcp-lab/demo-server
+
+mcp-lab inspect --command mcp-lab-demo
+```
+
+The demo server exposes a weather tool, note resources, and a greeting prompt — everything you need to explore all of MCP Lab's features without writing a single line of server code.
 
 ### Inspect a server
 
@@ -90,6 +105,12 @@ mcp-lab run tests.yaml
 mcp-lab run tests.yaml --verbose
 mcp-lab run tests.yaml --json > results.json
 mcp-lab run tests.yaml --bail --timeout 5000
+```
+
+Try the included fixture against the demo server:
+
+```bash
+mcp-lab run examples/fixtures/demo-server.yaml --verbose
 ```
 
 ---
@@ -189,6 +210,7 @@ Options:
   --url <url>          Server URL (HTTP)
   --timeout <ms>       Request timeout
   --json               JSON output
+  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
 ```
 
 ### `mcp-lab run`
@@ -203,7 +225,31 @@ Options:
   --timeout <ms>       Per-request timeout
   --json               JSON output (CI-friendly)
   -v, --verbose        Show all assertion details
+  --lang <locale>      Output language: en | ko  (env: MCP_LAB_LANG)
 ```
+
+---
+
+## Internationalization
+
+CLI output is available in multiple languages.
+
+```bash
+# Korean output via flag
+mcp-lab run tests.yaml --lang ko
+
+# Korean output via environment variable
+MCP_LAB_LANG=ko mcp-lab inspect --command mcp-lab-demo
+```
+
+| Locale | Language |
+|--------|----------|
+| `en`   | English (default) |
+| `ko`   | Korean |
+
+Only user-facing CLI messages are translated. JSON output (`--json`), protocol payloads, and assertion keys are always in English.
+
+To add a new locale, see [docs/i18n.md](docs/i18n.md).
 
 ---
 
@@ -214,6 +260,8 @@ MCP Lab is a pnpm monorepo. The public package is `mcp-lab`. Internal libraries 
 ```
 apps/
   cli                  — CLI entry point (mcp-lab command)
+  web                  — Browser UI (Vite + React)
+  api                  — API server bridging the UI to MCP packages
 
 packages/
   protocol-kernel      — JSON-RPC 2.0 + MCP types, ProtocolKernel class
@@ -222,11 +270,38 @@ packages/
   transport-http       — Streamable HTTP + SSE transport
   assertions           — Assertion engine
   test-spec            — YAML spec types and parser
+  client-simulator     — Roots / sampling / elicitation capability simulator
 
 examples/
   demo-server          — Demo MCP server (tools, resources, prompts)
   fixtures/            — Example test specs
 ```
+
+---
+
+## Web UI
+
+MCP Lab includes a browser-based inspector. Start the API server and the Vite dev server:
+
+```bash
+# Terminal 1 — API server
+node apps/api/dist/index.js
+
+# Terminal 2 — Web UI (http://localhost:5173)
+pnpm --filter @mcp-lab/web dev
+```
+
+Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
+
+To try it with the demo server, enter these values on the Inspect page:
+
+| Field | Value |
+|-------|-------|
+| Transport | stdio |
+| Command | `mcp-lab-demo` |
+| Args | *(leave empty)* |
+
+![Tool execution](docs/assets/tool-execution.gif)
 
 ---
 

@@ -39,6 +39,7 @@
     "@mcp-lab/test-spec": "workspace:*",
     "@mcp-lab/assertions": "workspace:*",
     "@mcp-lab/client-simulator": "workspace:*",
+    "@mcp-lab/i18n": "workspace:*",
     "commander": "^12.0.0",
     "chalk": "^5.3.0",
     "ora": "^8.0.0",

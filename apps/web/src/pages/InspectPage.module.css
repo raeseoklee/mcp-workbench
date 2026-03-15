@@ -1,0 +1,27 @@
+.page { max-width: 760px; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; }
+.title { font-size: 22px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+.sub { font-size: 13px; color: #64748b; }
+.section { margin-bottom: 28px; }
+.sectionTitle { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; }
+.instructions { font-size: 13.5px; color: #94a3b8; line-height: 1.7; background: #161b27; border: 1px solid #252d3d; border-radius: 6px; padding: 12px 14px; }
+.capsGrid { display: flex; flex-wrap: wrap; gap: 10px; }
+.capCard { background: #161b27; border: 1px solid #252d3d; border-radius: 6px; padding: 8px 14px; }
+.capName { display: block; font-size: 13px; font-weight: 600; color: #a78bfa; margin-bottom: 2px; }
+.capDetail { font-size: 11.5px; color: #64748b; }
+.disconnectBtn { padding: 7px 16px; background: transparent; border: 1px solid #3d2f2f; color: #f87171; border-radius: 6px; font-size: 13px; cursor: pointer; }
+.disconnectBtn:hover { background: #2a1a1a; }
+
+/* form */
+.form { display: flex; flex-direction: column; gap: 18px; max-width: 480px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.label { font-size: 12.5px; font-weight: 500; color: #94a3b8; }
+.input { background: #161b27; border: 1px solid #252d3d; border-radius: 6px; color: #e2e8f0; font-size: 13.5px; padding: 9px 12px; outline: none; transition: border-color 0.12s; }
+.input:focus { border-color: #7c6af0; }
+.tabs { display: flex; gap: 6px; }
+.tab { padding: 6px 14px; border-radius: 6px; border: 1px solid #252d3d; background: transparent; color: #64748b; font-size: 13px; cursor: pointer; }
+.tabActive { border-color: #7c6af0; color: #a78bfa; background: #1f1a40; }
+.connectBtn { align-self: flex-start; padding: 9px 24px; background: #7c6af0; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.connectBtn:hover { background: #6d5ce0; }
+.connectBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.error { font-size: 13px; color: #f87171; background: #2a1010; border: 1px solid #5a1f1f; border-radius: 6px; padding: 8px 12px; }

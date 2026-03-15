@@ -36,6 +36,32 @@
   color: #e2e8f0;
 }
 
+/* ─── Server badge ───────────────────────────────────────────────────────── */
+.serverBadge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #252d3d;
+}
+
+.serverDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+}
+
+.serverName {
+  font-size: 12px;
+  color: #4ade80;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ─── Nav ────────────────────────────────────────────────────────────────── */
 .nav {
   flex: 1;
