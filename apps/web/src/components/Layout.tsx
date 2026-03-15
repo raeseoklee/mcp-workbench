@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useSession } from "../context/SessionContext.js";
 import styles from "./Layout.module.css";
 
 const NAV_ITEMS = [
@@ -12,6 +13,8 @@ const NAV_ITEMS = [
 ];
 
 export default function Layout() {
+  const { session } = useSession();
+
   return (
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
@@ -19,6 +22,14 @@ export default function Layout() {
           <span className={styles.logoIcon}>⬡</span>
           <span className={styles.logoText}>MCP Lab</span>
         </header>
+
+        {session && (
+          <div className={styles.serverBadge}>
+            <span className={styles.serverDot} />
+            <span className={styles.serverName}>{session.serverInfo?.name ?? "connected"}</span>
+          </div>
+        )}
+
         <nav className={styles.nav}>
           {NAV_ITEMS.map(({ to, label }) => (
             <NavLink
