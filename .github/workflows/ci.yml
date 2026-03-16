@@ -45,13 +45,13 @@ jobs:
         run: |
           node apps/cli/dist/index.js inspect \
             --command node \
-            --args "examples/demo-server/dist/index.js" \
+            --args "examples/demo-mcp/dist/index.js" \
             --json
 
       - name: Integration — run test suite
         run: |
           node apps/cli/dist/index.js run \
-            examples/fixtures/demo-server.yaml \
+            examples/fixtures/demo-mcp.yaml \
             --verbose
 
       - name: Integration — snapshot baseline (create)
@@ -69,7 +69,7 @@ jobs:
       - name: Integration — JSON output
         run: |
           node apps/cli/dist/index.js run \
-            examples/fixtures/demo-server.yaml \
+            examples/fixtures/demo-mcp.yaml \
             --json | python3 -c "
           import json, sys
           r = json.load(sys.stdin)

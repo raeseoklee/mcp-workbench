@@ -4,8 +4,8 @@ apiVersion: mcp-workbench.dev/v0alpha1
 server:
   transport: stdio
   command: node
-  args: ["../../examples/demo-server/dist/index.js"]
-  cwd: examples/demo-server
+  args: ["../../examples/demo-mcp/dist/index.js"]
+  cwd: examples/demo-mcp
 
 # ─── Client capabilities ──────────────────────────────────────────────────────
 # Declare which server→client capabilities the simulated client supports.

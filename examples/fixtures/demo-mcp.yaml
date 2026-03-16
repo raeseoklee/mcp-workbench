@@ -4,7 +4,7 @@ server:
   transport: stdio
   command: node
   args:
-    - examples/demo-server/dist/index.js
+    - examples/demo-mcp/dist/index.js
 
 client:
   protocolVersion: "2025-11-25"

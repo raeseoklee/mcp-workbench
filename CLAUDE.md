@@ -32,7 +32,7 @@ packages/
   assertions/        # 어서션 러너 (snapshot diff 포함)
   client-simulator/  # roots / sampling / elicitation 클라이언트 시뮬레이터
 examples/
-  demo-server/       # @modelcontextprotocol/sdk 기반 데모 MCP 서버
+  demo-mcp/       # @modelcontextprotocol/sdk 기반 데모 MCP 서버
   fixtures/          # 예제 테스트 스펙 YAML
 ```
 

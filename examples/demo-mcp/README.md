@@ -21,7 +21,7 @@ npm install -g @mcp-workbench/cli
 mcp-workbench inspect --command mcp-workbench-demo
 
 # Run the example test suite
-mcp-workbench run examples/fixtures/demo-server.yaml --verbose
+mcp-workbench run examples/fixtures/demo-mcp.yaml --verbose
 ```
 
 ## What's included
