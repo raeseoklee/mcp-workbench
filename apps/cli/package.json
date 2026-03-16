@@ -1,6 +1,6 @@
 {
   "name": "@mcp-workbench/cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",
   "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
