@@ -4,6 +4,7 @@
  * Provides a simple weather tool, a note resource, and a greeting prompt —
  * just enough to exercise all of MCP Workbench's features.
  */
+import { createRequire } from "module";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -29,7 +30,7 @@ const NOTES: Record<string, string> = {
 };
 
 const server = new Server(
-  { name: "demo-mcp-server", version: "0.1.0" },
+  { name: "demo-mcp-server", version: createRequire(import.meta.url)("../package.json").version },
   {
     capabilities: {
       tools:     { listChanged: false },
