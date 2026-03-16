@@ -1,5 +1,5 @@
 {
-  "name": "@raeseoklee/mcp-workbench-plugin-sdk",
+  "name": "@mcp-workbench/plugin-sdk",
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench Plugin SDK — interfaces for building plugins",

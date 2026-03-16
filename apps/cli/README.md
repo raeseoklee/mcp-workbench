@@ -8,7 +8,7 @@ Test, inspect, and validate [Model Context Protocol](https://modelcontextprotoco
 
 ```bash
 # Preferred
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 
 # Alternative convenience package
 npm install -g mcp-workbench-cli

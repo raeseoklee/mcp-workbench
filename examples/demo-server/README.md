@@ -1,4 +1,4 @@
-# @raeseoklee/mcp-workbench-demo-server
+# @mcp-workbench/demo-mcp
 
 A ready-to-use demo [MCP](https://modelcontextprotocol.io) server for **[MCP Workbench](https://github.com/raeseoklee/mcp-workbench)**.
 
@@ -7,7 +7,7 @@ Exposes sample tools, resources, and prompts — perfect for trying out MCP Work
 ## Install
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench-demo-server
+npm install -g @mcp-workbench/demo-mcp
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install -g @raeseoklee/mcp-workbench-demo-server
 mcp-workbench-demo
 
 # Inspect with MCP Workbench
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 mcp-workbench inspect --command mcp-workbench-demo
 
 # Run the example test suite

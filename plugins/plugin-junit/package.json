@@ -1,5 +1,5 @@
 {
-  "name": "@raeseoklee/mcp-workbench-plugin-junit",
+  "name": "@mcp-workbench/plugin-junit",
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench plugin — generates JUnit XML test report for CI systems",
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@raeseoklee/mcp-workbench-plugin-sdk": "workspace:*"
+    "@mcp-workbench/plugin-sdk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",

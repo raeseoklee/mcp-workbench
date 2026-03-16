@@ -1,5 +1,5 @@
 {
-  "name": "@raeseoklee/mcp-workbench-demo-server",
+  "name": "@mcp-workbench/demo-mcp",
   "version": "0.1.0",
   "description": "Demo MCP server for MCP Workbench — tools, resources, and prompts out of the box",
   "type": "module",

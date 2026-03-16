@@ -1,5 +1,5 @@
 {
-  "name": "@raeseoklee/mcp-workbench",
+  "name": "@mcp-workbench/cli",
   "version": "0.1.1",
   "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",

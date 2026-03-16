@@ -10,7 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- **npm distribution strategy** — CLI now published as `@raeseoklee/mcp-workbench` (scoped package) because the unscoped `mcp-workbench` name is taken by an unrelated project
+- **npm distribution strategy** — CLI now published as `@mcp-workbench/cli` (scoped package) because the unscoped `mcp-workbench` name is taken by an unrelated project
 - Added `mcp-workbench-cli` convenience wrapper package for users who prefer an unscoped install
 - CLI binary name remains `mcp-workbench` — no change to command usage
 - Product branding remains **MCP Workbench**
@@ -50,8 +50,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Command contributions
 
 #### Official plugins
-- `@raeseoklee/mcp-workbench-plugin-html-report` — self-contained HTML report
-- `@raeseoklee/mcp-workbench-plugin-junit` — JUnit XML for GitHub Actions / Jenkins / GitLab CI
+- `@mcp-workbench/plugin-html-report` — self-contained HTML report
+- `@mcp-workbench/plugin-junit` — JUnit XML for GitHub Actions / Jenkins / GitLab CI
 
 #### Browser UI
 - Protocol Inspector — DevTools-style request/response log

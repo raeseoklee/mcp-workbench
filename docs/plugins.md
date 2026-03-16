@@ -21,7 +21,7 @@ MCP Workbench has a plugin system that lets you extend the tool without modifyin
 
 ```bash
 mcp-workbench run tests.yaml \
-  --plugin @raeseoklee/mcp-workbench-plugin-html-report \
+  --plugin @mcp-workbench/plugin-html-report \
   --reporter html
 ```
 
@@ -30,7 +30,7 @@ mcp-workbench run tests.yaml \
 ```bash
 mcp-workbench run tests.yaml \
   --plugin ./my-plugin.js \
-  --plugin @raeseoklee/mcp-workbench-plugin-junit \
+  --plugin @mcp-workbench/plugin-junit \
   --reporter junit
 ```
 
@@ -40,8 +40,8 @@ Create `workbench.config.yaml` in your project root:
 
 ```yaml
 plugins:
-  - "@raeseoklee/mcp-workbench-plugin-html-report"
-  - "@raeseoklee/mcp-workbench-plugin-junit"
+  - "@mcp-workbench/plugin-html-report"
+  - "@mcp-workbench/plugin-junit"
   - "./plugins/my-custom-reporter.js"
 ```
 
@@ -59,28 +59,28 @@ mcp-workbench plugins list --plugin ./my-plugin.js
 
 ## Official plugins
 
-### `@raeseoklee/mcp-workbench-plugin-html-report`
+### `@mcp-workbench/plugin-html-report`
 
 Generates a self-contained HTML report.
 
 ```bash
-pnpm add -D @raeseoklee/mcp-workbench-plugin-html-report
+pnpm add -D @mcp-workbench/plugin-html-report
 
 mcp-workbench run tests.yaml \
-  --plugin @raeseoklee/mcp-workbench-plugin-html-report \
+  --plugin @mcp-workbench/plugin-html-report \
   --reporter html \
   --reporter-output report.html
 ```
 
-### `@raeseoklee/mcp-workbench-plugin-junit`
+### `@mcp-workbench/plugin-junit`
 
 Generates JUnit XML for CI systems (GitHub Actions, Jenkins, GitLab CI).
 
 ```bash
-pnpm add -D @raeseoklee/mcp-workbench-plugin-junit
+pnpm add -D @mcp-workbench/plugin-junit
 
 mcp-workbench run tests.yaml \
-  --plugin @raeseoklee/mcp-workbench-plugin-junit \
+  --plugin @mcp-workbench/plugin-junit \
   --reporter junit \
   --reporter-output junit-results.xml
 ```
@@ -91,7 +91,7 @@ In GitHub Actions:
 - name: Run MCP tests
   run: |
     mcp-workbench run tests.yaml \
-      --plugin @raeseoklee/mcp-workbench-plugin-junit \
+      --plugin @mcp-workbench/plugin-junit \
       --reporter junit \
       --reporter-output test-results.xml
 
@@ -125,7 +125,7 @@ my-plugin/
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@raeseoklee/mcp-workbench-plugin-sdk": "^0.4.0"
+    "@mcp-workbench/plugin-sdk": "^0.4.0"
   }
 }
 ```
@@ -134,7 +134,7 @@ my-plugin/
 
 ```typescript
 // src/index.ts
-import type { WorkbenchPlugin, PluginContext } from "@raeseoklee/mcp-workbench-plugin-sdk";
+import type { WorkbenchPlugin, PluginContext } from "@mcp-workbench/plugin-sdk";
 
 const plugin: WorkbenchPlugin = {
   manifest: {

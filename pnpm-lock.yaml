@@ -210,13 +210,13 @@ importers:
 
   packages/npm-wrapper-cli:
     dependencies:
-      '@raeseoklee/mcp-workbench':
+      '@mcp-workbench/cli':
         specifier: workspace:*
         version: link:../../apps/cli
 
   packages/plugin-runtime:
     dependencies:
-      '@raeseoklee/mcp-workbench-plugin-sdk':
+      '@mcp-workbench/plugin-sdk':
         specifier: workspace:*
         version: link:../plugin-sdk
       yaml:
@@ -314,7 +314,7 @@ importers:
 
   plugins/plugin-html-report:
     dependencies:
-      '@raeseoklee/mcp-workbench-plugin-sdk':
+      '@mcp-workbench/plugin-sdk':
         specifier: workspace:*
         version: link:../../packages/plugin-sdk
     devDependencies:
@@ -330,7 +330,7 @@ importers:
 
   plugins/plugin-junit:
     dependencies:
-      '@raeseoklee/mcp-workbench-plugin-sdk':
+      '@mcp-workbench/plugin-sdk':
         specifier: workspace:*
         version: link:../../packages/plugin-sdk
     devDependencies:

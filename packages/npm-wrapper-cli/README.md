@@ -1,6 +1,6 @@
 # mcp-workbench-cli
 
-Convenience wrapper for **[@raeseoklee/mcp-workbench](https://www.npmjs.com/package/@raeseoklee/mcp-workbench)**.
+Convenience wrapper for **[@mcp-workbench/cli](https://www.npmjs.com/package/@mcp-workbench/cli)**.
 
 The unscoped npm name `mcp-workbench` is taken by an unrelated project. This package provides the same `mcp-workbench` command under an alternative package name.
 
@@ -13,7 +13,7 @@ npm install -g mcp-workbench-cli
 This is equivalent to:
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 ```
 
 Both install the `mcp-workbench` command.
