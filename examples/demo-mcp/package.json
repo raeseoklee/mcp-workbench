@@ -1,6 +1,6 @@
 {
   "name": "@mcp-workbench/demo-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Demo MCP server for MCP Workbench — tools, resources, and prompts out of the box",
   "type": "module",
   "license": "Apache-2.0",
