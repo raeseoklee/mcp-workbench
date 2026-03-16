@@ -123,7 +123,7 @@ mcp-workbench run tests.yaml --bail --timeout 5000
 Try the included fixture against the demo server:
 
 ```bash
-mcp-workbench run examples/fixtures/demo-server.yaml --verbose
+mcp-workbench run examples/fixtures/demo-mcp.yaml --verbose
 ```
 
 ### Start the Web UI
@@ -310,7 +310,7 @@ packages/
   client-simulator     — Roots / sampling / elicitation capability simulator
 
 examples/
-  demo-server          — Demo MCP server (tools, resources, prompts)
+  demo-mcp          — Demo MCP server (tools, resources, prompts)
   fixtures/            — Example test specs
 ```
 

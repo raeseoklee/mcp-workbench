@@ -123,7 +123,7 @@ mcp-workbench run tests.yaml --bail --timeout 5000
 데모 서버에 대해 포함된 픽스처를 실행해보세요:
 
 ```bash
-mcp-workbench run examples/fixtures/demo-server.yaml --verbose
+mcp-workbench run examples/fixtures/demo-mcp.yaml --verbose
 ```
 
 ### Web UI 시작하기
@@ -310,7 +310,7 @@ packages/
   client-simulator     — Roots / sampling / elicitation 기능 시뮬레이터
 
 examples/
-  demo-server          — 데모 MCP 서버 (도구, 리소스, 프롬프트)
+  demo-mcp          — 데모 MCP 서버 (도구, 리소스, 프롬프트)
   fixtures/            — 예제 테스트 스펙
 ```
 

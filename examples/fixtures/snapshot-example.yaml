@@ -13,7 +13,7 @@ server:
   transport: stdio
   command: node
   args:
-    - examples/demo-server/dist/index.js
+    - examples/demo-mcp/dist/index.js
 
 tests:
   - id: tools-list-snapshot
