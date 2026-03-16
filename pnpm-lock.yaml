@@ -216,7 +216,7 @@ importers:
 
   packages/plugin-runtime:
     dependencies:
-      '@mcp-workbench/plugin-sdk':
+      '@raeseoklee/mcp-workbench-plugin-sdk':
         specifier: workspace:*
         version: link:../plugin-sdk
       yaml:
@@ -314,7 +314,7 @@ importers:
 
   plugins/plugin-html-report:
     dependencies:
-      '@mcp-workbench/plugin-sdk':
+      '@raeseoklee/mcp-workbench-plugin-sdk':
         specifier: workspace:*
         version: link:../../packages/plugin-sdk
     devDependencies:
@@ -330,7 +330,7 @@ importers:
 
   plugins/plugin-junit:
     dependencies:
-      '@mcp-workbench/plugin-sdk':
+      '@raeseoklee/mcp-workbench-plugin-sdk':
         specifier: workspace:*
         version: link:../../packages/plugin-sdk
     devDependencies:

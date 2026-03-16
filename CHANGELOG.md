@@ -50,8 +50,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Command contributions
 
 #### Official plugins
-- `@mcp-workbench/plugin-html-report` — self-contained HTML report
-- `@mcp-workbench/plugin-junit` — JUnit XML for GitHub Actions / Jenkins / GitLab CI
+- `@raeseoklee/mcp-workbench-plugin-html-report` — self-contained HTML report
+- `@raeseoklee/mcp-workbench-plugin-junit` — JUnit XML for GitHub Actions / Jenkins / GitLab CI
 
 #### Browser UI
 - Protocol Inspector — DevTools-style request/response log

@@ -1,6 +1,5 @@
 {
-  "name": "@mcp-workbench/plugin-html-report",
-  "private": true,
+  "name": "@raeseoklee/mcp-workbench-plugin-html-report",
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench plugin — generates a self-contained HTML test report",
@@ -20,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-workbench/plugin-sdk": "workspace:*"
+    "@raeseoklee/mcp-workbench-plugin-sdk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -36,5 +35,8 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "files": ["dist"]
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -69,7 +69,7 @@ Both provide the same `mcp-workbench` command.
 Install the CLI and the bundled demo server, then inspect it:
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench @mcp-workbench/demo-server
+npm install -g @raeseoklee/mcp-workbench @raeseoklee/mcp-workbench-demo-server
 
 mcp-workbench inspect --command mcp-workbench-demo
 ```
@@ -355,12 +355,12 @@ MCP Workbench has an extensible plugin system for reporters and custom commands.
 ```bash
 # Generate an HTML report after running tests
 mcp-workbench run tests.yaml \
-  --plugin @mcp-workbench/plugin-html-report \
+  --plugin @raeseoklee/mcp-workbench-plugin-html-report \
   --reporter html
 
 # Generate JUnit XML for CI (GitHub Actions, Jenkins, etc.)
 mcp-workbench run tests.yaml \
-  --plugin @mcp-workbench/plugin-junit \
+  --plugin @raeseoklee/mcp-workbench-plugin-junit \
   --reporter junit \
   --reporter-output test-results.xml
 ```
@@ -369,8 +369,8 @@ Or configure plugins permanently in `workbench.config.yaml`:
 
 ```yaml
 plugins:
-  - "@mcp-workbench/plugin-html-report"
-  - "@mcp-workbench/plugin-junit"
+  - "@raeseoklee/mcp-workbench-plugin-html-report"
+  - "@raeseoklee/mcp-workbench-plugin-junit"
 ```
 
 See [docs/plugins.md](docs/plugins.md) for the full plugin guide including how to build your own.

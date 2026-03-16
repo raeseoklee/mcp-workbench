@@ -1,5 +1,5 @@
 {
-  "name": "@mcp-workbench/plugin-sdk",
+  "name": "@raeseoklee/mcp-workbench-plugin-sdk",
   "version": "0.4.0",
   "type": "module",
   "description": "MCP Workbench Plugin SDK — interfaces for building plugins",
@@ -31,5 +31,8 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "files": ["dist"]
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  }
 }

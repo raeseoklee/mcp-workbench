@@ -20,7 +20,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-workbench/plugin-sdk": "workspace:*",
+    "@raeseoklee/mcp-workbench-plugin-sdk": "workspace:*",
     "yaml": "^2.0.0"
   },
   "devDependencies": {
