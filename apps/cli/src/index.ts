@@ -1,5 +1,9 @@
 import { Command } from "commander";
 import { setLang } from "@mcp-workbench/i18n";
+
+// `require` is provided by the esbuild banner (createRequire)
+declare const require: (id: string) => Record<string, unknown>;
+const pkg = require("../package.json") as { version: string };
 import { runCommand } from "./commands/run.js";
 import { inspectCommand } from "./commands/inspect.js";
 import { pluginsListCommand } from "./commands/plugins.js";
@@ -10,7 +14,7 @@ const program = new Command();
 program
   .name("mcp-workbench")
   .description("MCP server testing, validation, and regression platform")
-  .version("0.1.0")
+  .version(pkg.version)
   .option(
     "--lang <locale>",
     "Output language: en | ko  (env: MCP_WORKBENCH_LANG)",
@@ -51,6 +55,7 @@ program
   .option("--command <cmd>", "Command to run (stdio transport)")
   .option("--args <args>", "Space-separated arguments (stdio transport)")
   .option("--url <url>", "Server URL (HTTP transport)")
+  .option("--header <header>", "HTTP header 'Key: Value' (repeatable)", (v: string, prev: string[]) => [...prev, v], [] as string[])
   .option("--timeout <ms>", "Request timeout in milliseconds")
   .option("--json", "Output as JSON", false)
   .action(inspectCommand);
