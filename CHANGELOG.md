@@ -10,6 +10,27 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.5.0] — 2026-03-16
+
+### Added
+
+- `mcp-workbench generate` command with shallow and deep modes
+- Deep mode: call safe tools, add response-based assertions, skip destructive tools
+- Safety classification for tools by name patterns (safe/unsafe/unknown)
+- Partial discovery: continue generating even when initialize or individual capabilities fail
+- Per-category discovery status reporting (success/failed/skipped)
+- `--header` option for `inspect` command (authenticated HTTP servers)
+- `--depth`, `--allow-side-effects` options for `generate`
+- `packages/spec-generator` package (discovery, inference, safety, emitter)
+- `docs/generate.md` documentation
+
+### Fixed
+
+- Handle `id: null` JSON-RPC error responses immediately instead of waiting for timeout
+- CLI version now read from package.json instead of hardcoded
+
+---
+
 ## [0.3.0] — 2026-03-16
 
 ### Added

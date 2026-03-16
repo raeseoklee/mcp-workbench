@@ -23,13 +23,30 @@ export interface GenerateOptions {
   onProgress?: (msg: string) => void;
 }
 
+export type DiscoveryStatus = "success" | "failed" | "skipped";
+
+export interface DiscoveryResult<T> {
+  status: DiscoveryStatus;
+  data?: T;
+  error?: string;
+}
+
+export interface DiscoverySummary {
+  initialize: DiscoveryResult<{ name: string; version: string; protocol: string }>;
+  tools: DiscoveryResult<unknown[]>;
+  resources: DiscoveryResult<unknown[]>;
+  prompts: DiscoveryResult<unknown[]>;
+}
+
 export interface GenerateResult {
   /** Generated YAML string */
   yaml: string;
-  /** Server info */
+  /** Server info (if initialize succeeded) */
   serverInfo?: { name: string; version: string; protocol: string };
   /** Counts */
   counts: { tools: number; resources: number; prompts: number; tests: number };
   /** Skipped tools in deep mode */
   skipped: Array<{ tool: string; reason: string }>;
+  /** Per-category discovery results */
+  discovery: DiscoverySummary;
 }
