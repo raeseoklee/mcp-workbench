@@ -16,6 +16,8 @@ interface GenerateCommandOpts {
   output?: string;
   stdout?: boolean;
   overwrite?: boolean;
+  depth?: string;
+  allowSideEffects?: boolean;
 }
 
 export async function generateCommand(opts: GenerateCommandOpts): Promise<void> {
@@ -47,6 +49,9 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
     return new Set(val.split(",").map((s) => s.trim()) as Array<"tools" | "resources" | "prompts">);
   };
 
+  const useSpinner = !opts.stdout;
+  const spinner = useSpinner ? ora("Connecting to server...").start() : null;
+
   const genOpts: GenerateOptions = {
     transport: opts.transport as "stdio" | "streamable-http",
     url: opts.url,
@@ -56,10 +61,12 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
     timeoutMs: opts.timeout ? Number(opts.timeout) : undefined,
     include: parseSet(opts.include),
     exclude: parseSet(opts.exclude),
+    depth: (opts.depth as "shallow" | "deep") ?? "shallow",
+    allowSideEffects: opts.allowSideEffects ?? false,
+    onProgress: useSpinner
+      ? (msg) => { if (spinner) spinner.text = msg; }
+      : undefined,
   };
-
-  const useSpinner = !opts.stdout;
-  const spinner = useSpinner ? ora("Connecting to server...").start() : null;
 
   try {
     const result = await generate(genOpts);
@@ -86,6 +93,12 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
       console.log(`  Resources: ${result.counts.resources}`);
       console.log(`  Prompts: ${result.counts.prompts}`);
       console.log(`  Tests:   ${chalk.green(result.counts.tests)} generated`);
+      if (result.skipped.length > 0) {
+        console.log(`  Skipped: ${chalk.yellow(result.skipped.length)} tools`);
+        for (const s of result.skipped) {
+          console.log(`    ${chalk.dim("→")} ${s.tool}: ${s.reason}`);
+        }
+      }
       if (opts.output) {
         console.log();
         console.log(`  ${chalk.green("Written to")} ${opts.output}`);

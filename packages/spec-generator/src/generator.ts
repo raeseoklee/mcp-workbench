@@ -3,7 +3,8 @@ import { StdioTransport } from "@mcp-workbench/transport-stdio";
 import { HttpTransport } from "@mcp-workbench/transport-http";
 import type { Transport } from "@mcp-workbench/protocol-kernel";
 import { stringify } from "yaml";
-import { inferArgs, type JsonSchema } from "./inference.js";
+import { inferArgs, inferValue, type JsonSchema } from "./inference.js";
+import { classifyTool, hasInferrableArgs } from "./safety.js";
 import type { GenerateOptions, GenerateResult } from "./types.js";
 
 interface Tool {
@@ -73,8 +74,52 @@ export async function generate(opts: GenerateOptions): Promise<GenerateResult> {
       prompts = result.prompts as Prompt[];
     }
 
+    // Deep mode: call safe tools to get realistic assertions
+    const deepResults = new Map<string, unknown>();
+    const skipped: Array<{ tool: string; reason: string }> = [];
+
+    if (opts.depth === "deep" && tools.length > 0) {
+      for (const tool of tools) {
+        const safety = classifyTool(tool.name);
+
+        if (safety.level === "unsafe" && !opts.allowSideEffects) {
+          skipped.push({ tool: tool.name, reason: `skipped: ${safety.reason}` });
+          opts.onProgress?.(`skip ${tool.name} (${safety.reason})`);
+          continue;
+        }
+
+        if (safety.level === "unknown" && !opts.allowSideEffects) {
+          skipped.push({ tool: tool.name, reason: `skipped: ${safety.reason}` });
+          opts.onProgress?.(`skip ${tool.name} (${safety.reason})`);
+          continue;
+        }
+
+        if (!hasInferrableArgs(tool.inputSchema as Record<string, unknown>)) {
+          skipped.push({ tool: tool.name, reason: "skipped: required args not inferrable" });
+          opts.onProgress?.(`skip ${tool.name} (args not inferrable)`);
+          continue;
+        }
+
+        const args = inferArgs(tool.inputSchema as JsonSchema);
+        // Skip if any arg is TODO
+        if (args && Object.values(args).includes("TODO")) {
+          skipped.push({ tool: tool.name, reason: "skipped: contains TODO placeholder" });
+          opts.onProgress?.(`skip ${tool.name} (TODO placeholder)`);
+          continue;
+        }
+
+        opts.onProgress?.(`call ${tool.name}...`);
+        try {
+          const result = await session.callTool(tool.name, args ?? {});
+          deepResults.set(tool.name, result);
+        } catch {
+          skipped.push({ tool: tool.name, reason: "skipped: call failed" });
+        }
+      }
+    }
+
     // Build tests
-    const tests = buildTests(tools, resources, prompts);
+    const tests = buildTests(tools, resources, prompts, deepResults);
 
     // Build spec object
     const spec: Record<string, unknown> = {
@@ -102,6 +147,7 @@ export async function generate(opts: GenerateOptions): Promise<GenerateResult> {
         prompts: prompts.length,
         tests: tests.length,
       },
+      skipped,
     };
   } finally {
     await session.close();
@@ -128,7 +174,12 @@ function buildServerBlock(opts: GenerateOptions): Record<string, unknown> {
   return block;
 }
 
-function buildTests(tools: Tool[], resources: Resource[], prompts: Prompt[]): unknown[] {
+function buildTests(
+  tools: Tool[],
+  resources: Resource[],
+  prompts: Prompt[],
+  deepResults: Map<string, unknown> = new Map(),
+): unknown[] {
   const tests: unknown[] = [];
 
   // Tools
@@ -144,6 +195,23 @@ function buildTests(tools: Tool[], resources: Resource[], prompts: Prompt[]): un
     });
 
     for (const tool of tools) {
+      const asserts: unknown[] = [
+        { kind: "status", equals: "success" },
+        { kind: "executionError", equals: false },
+      ];
+
+      const deepResult = deepResults.get(tool.name) as
+        | { content?: Array<{ type: string; text?: string }>; isError?: boolean }
+        | undefined;
+
+      // If deep mode got a result, add content-based assertions
+      if (deepResult && !deepResult.isError && deepResult.content?.[0]) {
+        const firstContent = deepResult.content[0];
+        if (firstContent.type === "text" && firstContent.text) {
+          asserts.push({ kind: "contentType", contains: "text" });
+        }
+      }
+
       const test: Record<string, unknown> = {
         id: `tool-${sanitizeId(tool.name)}`,
         description: `Tool: ${tool.name}`,
@@ -151,10 +219,7 @@ function buildTests(tools: Tool[], resources: Resource[], prompts: Prompt[]): un
           method: "tools/call",
           tool: tool.name,
         },
-        assert: [
-          { kind: "status", equals: "success" },
-          { kind: "executionError", equals: false },
-        ],
+        assert: asserts,
       };
 
       const args = inferArgs(tool.inputSchema as JsonSchema);

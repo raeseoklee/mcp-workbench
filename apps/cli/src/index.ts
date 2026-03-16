@@ -72,6 +72,8 @@ program
   .option("--timeout <ms>", "Connection timeout in milliseconds")
   .option("--include <list>", "Comma-separated capabilities: tools,resources,prompts")
   .option("--exclude <list>", "Comma-separated capabilities to skip")
+  .option("--depth <mode>", "Generation depth: shallow (default) or deep", "shallow")
+  .option("--allow-side-effects", "Allow calling potentially destructive tools in deep mode", false)
   .option("-o, --output <file>", "Write spec to file")
   .option("--stdout", "Print spec to stdout", false)
   .option("--overwrite", "Overwrite existing output file", false)
