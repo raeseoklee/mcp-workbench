@@ -12,7 +12,7 @@ The official VS Code extension for MCP Workbench is maintained in a separate rep
 
 ```bash
 # Primary
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 
 # Or alternative convenience wrapper
 npm install -g mcp-workbench-cli

@@ -47,7 +47,7 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 
 ```bash
 # Primary — scoped package
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 
 # Alternative — convenience wrapper
 npm install -g mcp-workbench-cli
@@ -69,7 +69,7 @@ Both provide the same `mcp-workbench` command.
 Install the CLI and the bundled demo server, then inspect it:
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench @mcp-workbench/demo-server
+npm install -g @mcp-workbench/cli @mcp-workbench/demo-mcp
 
 mcp-workbench inspect --command mcp-workbench-demo
 ```
@@ -287,7 +287,7 @@ MCP Workbench is a pnpm monorepo.
 | Name | npm package | Description |
 |------|-------------|-------------|
 | **MCP Workbench** | Product name | The overall project brand |
-| `@raeseoklee/mcp-workbench` | Primary npm package | Full CLI implementation |
+| `@mcp-workbench/cli` | Primary npm package | Full CLI implementation |
 | `mcp-workbench-cli` | Convenience wrapper | Thin forwarder to the scoped package |
 | `mcp-workbench` | CLI command | Binary name installed by both packages |
 | `mcp-workbench` / `mcp-workbench-vscode` | GitHub repos | Source code repositories |

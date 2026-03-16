@@ -47,7 +47,7 @@ MCP Workbench가 그 공백을 채웁니다: **저장된 테스트, 회귀 diff,
 
 ```bash
 # 기본 — 스코프 패키지
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 
 # 대안 — 편의 래퍼
 npm install -g mcp-workbench-cli
@@ -69,7 +69,7 @@ npm install -g mcp-workbench-cli
 CLI와 번들된 데모 서버를 설치한 뒤 검사해보세요:
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench @mcp-workbench/demo-server
+npm install -g @mcp-workbench/cli @mcp-workbench/demo-mcp
 
 mcp-workbench inspect --command mcp-workbench-demo
 ```
@@ -287,7 +287,7 @@ MCP Workbench는 pnpm 모노레포입니다.
 | 이름 | npm 패키지 | 설명 |
 |------|-----------|------|
 | **MCP Workbench** | 제품명 | 프로젝트 전체 브랜드 |
-| `@raeseoklee/mcp-workbench` | 기본 npm 패키지 | 전체 CLI 구현 |
+| `@mcp-workbench/cli` | 기본 npm 패키지 | 전체 CLI 구현 |
 | `mcp-workbench-cli` | 편의 래퍼 | 스코프 패키지로 전달하는 얇은 포워더 |
 | `mcp-workbench` | CLI 커맨드 | 두 패키지 모두가 설치하는 바이너리 이름 |
 | `mcp-workbench` / `mcp-workbench-vscode` | GitHub 저장소 | 소스 코드 저장소 |

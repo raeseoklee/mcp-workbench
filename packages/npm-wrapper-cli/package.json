@@ -1,7 +1,7 @@
 {
   "name": "mcp-workbench-cli",
-  "version": "0.1.0",
-  "description": "MCP Workbench CLI — convenience wrapper for @raeseoklee/mcp-workbench",
+  "version": "0.2.0",
+  "description": "MCP Workbench CLI — convenience wrapper for @mcp-workbench/cli",
   "type": "module",
   "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     "bin"
   ],
   "dependencies": {
-    "@raeseoklee/mcp-workbench": "workspace:*"
+    "@mcp-workbench/cli": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

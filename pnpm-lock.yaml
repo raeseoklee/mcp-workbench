@@ -210,7 +210,7 @@ importers:
 
   packages/npm-wrapper-cli:
     dependencies:
-      '@raeseoklee/mcp-workbench':
+      '@mcp-workbench/cli':
         specifier: workspace:*
         version: link:../../apps/cli
 

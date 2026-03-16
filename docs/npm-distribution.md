@@ -5,7 +5,7 @@
 | Name | Type | Description |
 |------|------|-------------|
 | **MCP Workbench** | Product name | The project brand |
-| `@raeseoklee/mcp-workbench` | Primary npm package | Full CLI implementation |
+| `@mcp-workbench/cli` | Primary npm package | Full CLI implementation |
 | `mcp-workbench-cli` | Convenience wrapper | Thin forwarder to the scoped package |
 | `mcp-workbench` | CLI command | Binary name (same for both packages) |
 
@@ -22,7 +22,7 @@ To avoid confusion, we publish under a scoped name and provide a convenience wra
 ### Option 1 — Scoped package (recommended)
 
 ```bash
-npm install -g @raeseoklee/mcp-workbench
+npm install -g @mcp-workbench/cli
 ```
 
 ### Option 2 — Convenience wrapper
@@ -43,7 +43,7 @@ mcp-workbench run tests.yaml --verbose
 
 `mcp-workbench-cli` is a thin package that:
 
-1. Declares `@raeseoklee/mcp-workbench` as a dependency
+1. Declares `@mcp-workbench/cli` as a dependency
 2. Provides a `bin/mcp-workbench.js` script that forwards to the real CLI entry point
 3. Contains no implementation logic of its own
 
@@ -51,7 +51,7 @@ mcp-workbench run tests.yaml --verbose
 
 ```bash
 # Scoped package
-npm update -g @raeseoklee/mcp-workbench
+npm update -g @mcp-workbench/cli
 
 # Wrapper
 npm update -g mcp-workbench-cli
@@ -66,7 +66,7 @@ Both packages must be published in order — the wrapper depends on the scoped p
 pnpm build
 
 # 2. Publish the real package first
-pnpm --filter @raeseoklee/mcp-workbench publish
+pnpm --filter @mcp-workbench/cli publish
 
 # 3. Then publish the wrapper
 cd packages/npm-wrapper-cli
@@ -78,5 +78,5 @@ npm publish
 Both packages should share the same version number. When bumping versions:
 
 1. Update `apps/cli/package.json` version
-2. Update `packages/npm-wrapper-cli/package.json` version AND its dependency on `@raeseoklee/mcp-workbench`
+2. Update `packages/npm-wrapper-cli/package.json` version AND its dependency on `@mcp-workbench/cli`
 3. Publish scoped package first, then wrapper
