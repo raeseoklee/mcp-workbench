@@ -73,6 +73,7 @@ export const JSON_RPC_ERROR_CODES = {
 
 export const MCP_PROTOCOL_VERSIONS = [
   "2025-11-25",
+  "2025-03-26",
   "2024-11-05",
 ] as const;
 
