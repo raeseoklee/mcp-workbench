@@ -64,8 +64,10 @@ mcp-workbench generate --transport streamable-http --url http://localhost:8081/m
 
 | Option | Default | Description |
 |--------|---------|-------------|
+| `--depth <mode>` | `shallow` | `shallow` (list only) or `deep` (call safe tools) |
 | `--include <list>` | all | Comma-separated subset to generate: `tools`, `resources`, `prompts` |
 | `--exclude <list>` | none | Comma-separated capabilities to skip |
+| `--allow-side-effects` | false | Allow calling potentially destructive tools in deep mode |
 
 ### Output
 
@@ -238,12 +240,59 @@ Inference is shallow. Nested object schemas and `oneOf`/`anyOf` always produce `
 
 ---
 
-## Limitations (v0.1)
+## Deep Mode
 
-- **No deep mode:** `generate` only calls `tools/list`, `resources/list`, and `prompts/list`. It does not execute any tools or read any resources to discover realistic outputs.
+`--depth deep` enables actual tool execution for safe, read-only tools:
+
+```bash
+mcp-workbench generate --transport streamable-http --url http://localhost:8081/mcp \
+  --depth deep -o tests.yaml
+```
+
+**Safety classification**: Tools are classified by name patterns:
+- **Safe** (`get_*`, `list_*`, `read_*`, `search_*`, `check_*`, etc.) — called automatically
+- **Unsafe** (`create_*`, `delete_*`, `update_*`, `send_*`, etc.) — skipped by default
+- **Unknown** — skipped by default
+
+Use `--allow-side-effects` to override safety checks and call all tools.
+
+Deep mode results:
+- Successful calls add `contentType` assertions to the generated spec
+- Failed calls are reported as skipped with a reason
+- Deep mode failures never abort the entire generation
+
+## Partial Discovery
+
+`generate` supports **partial discovery** — it continues even when some operations fail.
+
+**Behavior:**
+- Transport failure → hard fail (cannot connect at all)
+- `initialize` failure → warning, continue probing capabilities independently
+- Individual capability failure (`tools/list`, `resources/list`, `prompts/list`) → skip that category only
+- If any category succeeds → generate spec from successful categories
+- If all categories fail → graceful error with per-category failure reasons
+
+**Example output with partial failure:**
+```
+  ⚠ initialize failed: authentication required
+    Continuing with partial discovery...
+
+  tools:       ✗ failed (authentication required)
+  resources:   ✓ 4 discovered
+  prompts:     ○ skipped
+
+  Tests:     5 generated
+```
+
+This is useful for servers where:
+- Some capabilities are public while others require authentication
+- `initialize` requires a token but individual probes may work
+- You want to generate as much as possible without full credentials
+
+## Limitations
+
 - **No AI-assisted arg generation:** Placeholder inference is purely heuristic, not LLM-powered.
 - **No merge with existing specs:** Running `generate` twice does not update an existing file — use `--overwrite` to replace it entirely.
-- **No destructive tool detection:** Tools with names suggesting side effects (`delete`, `drop`, `reset`, etc.) are included without warning. Detection and skip logic is planned for v0.2.
 - **Shallow schema inference only:** Complex input schemas (nested objects, `oneOf`, `anyOf`, `$ref`) always fall back to `"TODO"`.
 
 ---
@@ -252,6 +301,7 @@ Inference is shallow. Nested object schemas and `oneOf`/`anyOf` always produce `
 
 | Version | Features |
 |---------|----------|
-| v0.1 | Shallow generation, skeleton test cases, header support, `--include`/`--exclude` filters |
-| v0.2 | Deep mode (optional tool execution for realistic outputs), destructive tool detection and skip, `"TODO"` inline comments explaining why inference failed |
-| v0.3 | Merge with existing spec file, AI-assisted argument generation, `generate --run` pipeline shortcut |
+| v0.1 | Shallow generation, skeleton test cases, header support, filters |
+| v0.2 | Deep mode, safety classification, destructive tool skip |
+| v0.3 | Partial discovery, per-category status, id:null error handling |
+| v0.4 | Merge with existing spec file, AI-assisted argument generation, `generate --run` pipeline |
