@@ -1,5 +1,7 @@
 # MCP Workbench
 
+**English** | [한국어](README.ko.md)
+
 **A quality platform for MCP server developers.**
 
 Test, inspect, and validate [Model Context Protocol](https://modelcontextprotocol.io) servers — from the command line or in CI.
