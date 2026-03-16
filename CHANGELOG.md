@@ -1,39 +1,61 @@
 # Changelog
 
-All notable changes to MCP Workbench are documented here.
+All notable changes to MCP Workbench will be documented here.
 
-This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
 ## [Unreleased]
 
-### Added
-- Snapshot / baseline diff assertions (`kind: snapshot`) — run with `--update-snapshots` to record, subsequent runs compare and diff
+### Changed
+
+- **npm distribution strategy** — CLI now published as `@raeseoklee/mcp-workbench` (scoped package) because the unscoped `mcp-workbench` name is taken by an unrelated project
+- Added `mcp-workbench-cli` convenience wrapper package for users who prefer an unscoped install
+- CLI binary name remains `mcp-workbench` — no change to command usage
+- Product branding remains **MCP Workbench**
 
 ---
 
 ## [0.1.0] — 2026-03-15
 
-Initial release of MCP Workbench.
-
 ### Added
-- `mcp-workbench inspect` — connect to any MCP server and display capabilities, tools, resources, and prompts
-- `mcp-workbench run <spec>` — execute YAML test suites with typed assertions
-- Transport support: `stdio` (child process) and `streamable-http` (Streamable HTTP / SSE)
-- Assertion engine: `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, `outputSchemaValid`
-- YAML test spec format `mcp-workbench.dev/v0alpha1` with `server`, `client`, `fixtures`, and `tests` sections
-- `--json` output mode for CI integration
-- `--bail`, `--tags`, `--ids`, `--timeout`, `--verbose` CLI flags
-- Demo server (`@mcp-workbench/demo-server`) with tools, resources, and prompts
-- Example fixture (`examples/fixtures/demo-server.yaml`)
-- GitHub Actions CI workflow
-- Protocol spec `2025-11-25` with backward compatibility for `2024-11-05`
 
-### Architecture
-- `@mcp-workbench/protocol-kernel` — JSON-RPC 2.0 + MCP types + ProtocolKernel
-- `@mcp-workbench/session-engine` — session lifecycle + timeline recording
-- `@mcp-workbench/transport-stdio` — stdio transport
-- `@mcp-workbench/transport-http` — Streamable HTTP transport
-- `@mcp-workbench/assertions` — assertion engine
-- `@mcp-workbench/test-spec` — YAML spec parser and types
+#### CLI
+- `mcp-workbench inspect` — connect to any MCP server and explore capabilities, tools, resources, and prompts
+- `mcp-workbench run <spec-file>` — execute YAML test suites with rich assertions
+- `mcp-workbench plugins list` — list loaded plugins and their contributions
+- `--json` output for CI-friendly machine-readable results
+- `--bail` flag to stop after first failure
+- `--tags` / `--ids` filters for selective test execution
+- `--update-snapshots` / `--snapshots-dir` for snapshot baseline management
+- `--plugin` / `--reporter` / `--reporter-output` for plugin integration
+- `--lang` / `MCP_WORKBENCH_LANG` for localised output (en/ko)
+
+#### Assertion engine
+- `status`, `executionError`, `protocolError`, `jsonpath`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, `outputSchemaValid`, `snapshot` assertion kinds
+
+#### Transport support
+- `stdio` — local server via child process
+- `streamable-http` — remote servers via Streamable HTTP
+- `sse` — legacy SSE transport
+
+#### Client simulator
+- `roots`, `sampling`, `elicitation` capability simulation for server→client flows
+
+#### Plugin system
+- `WorkbenchPlugin` interface and `plugin-sdk` package
+- `workbench.config.yaml` auto-discovery
+- Reporter contributions (`html`, `junit`)
+- Command contributions
+
+#### Official plugins
+- `@mcp-workbench/plugin-html-report` — self-contained HTML report
+- `@mcp-workbench/plugin-junit` — JUnit XML for GitHub Actions / Jenkins / GitLab CI
+
+#### Browser UI
+- Protocol Inspector — DevTools-style request/response log
+- Dark/light mode toggle
+
+#### Internationalisation
+- English and Korean output (`en` / `ko`)

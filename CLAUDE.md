@@ -8,9 +8,10 @@
 
 **MCP Workbench** — Model Context Protocol 서버를 검사·테스트·검증하는 개발자 도구.
 
-- CLI (`mcp-workbench run`, `mcp-workbench inspect`)로 MCP 서버에 연결해 YAML 스펙 기반 테스트 실행
+- CLI (`mcp-workbench run`, `mcp-workbench inspect`, `mcp-workbench plugins list`)로 MCP 서버에 연결해 YAML 스펙 기반 테스트 실행
 - 스냅샷 diff, 어서션, 클라이언트 시뮬레이터(roots/sampling/elicitation) 지원
-- 향후 브라우저 UI(`apps/web`)를 통한 인터랙티브 인스펙터 제공 예정
+- 브라우저 UI(`apps/web`) — 실제 서버 연결, 도구 호출, Timeline, Test Results 등 전 기능 구현 완료
+- 플러그인 시스템 — `--plugin` 플래그 또는 `workbench.config.yaml`로 reporter/command 확장
 
 MCP 스펙 버전: **2025-11-25**
 

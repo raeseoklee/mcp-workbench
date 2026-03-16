@@ -1,8 +1,8 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import { setLang } from "@mcp-workbench/i18n";
 import { runCommand } from "./commands/run.js";
 import { inspectCommand } from "./commands/inspect.js";
+import { pluginsListCommand } from "./commands/plugins.js";
 
 const program = new Command();
 
@@ -32,6 +32,9 @@ program
   .option("-v, --verbose", "Show all assertion details", false)
   .option("-u, --update-snapshots", "Write/overwrite snapshot baselines", false)
   .option("--snapshots-dir <dir>", "Directory for snapshot files (default: .mcp-workbench/snapshots)")
+  .option("--plugin <path>", "Load a plugin (repeatable)", (v: string, prev: string[]) => [...prev, v], [] as string[])
+  .option("--reporter <name>", "Reporter plugin to invoke after tests (e.g. html)")
+  .option("--reporter-output <path>", "Output path passed to the reporter")
   .action(runCommand);
 
 // ─── inspect ─────────────────────────────────────────────────────────────────
@@ -50,6 +53,16 @@ program
   .option("--timeout <ms>", "Request timeout in milliseconds")
   .option("--json", "Output as JSON", false)
   .action(inspectCommand);
+
+// ─── plugins ──────────────────────────────────────────────────────────────────
+
+const pluginsCmd = program.command("plugins").description("Plugin management commands");
+
+pluginsCmd
+  .command("list")
+  .description("List loaded plugins and their contributions")
+  .option("--plugin <path>", "Load a plugin (repeatable)", (v: string, prev: string[]) => [...prev, v], [] as string[])
+  .action(pluginsListCommand);
 
 program.parseAsync(process.argv).catch((err: unknown) => {
   console.error(err instanceof Error ? err.message : String(err));

@@ -36,16 +36,27 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 - **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
 - **CI-friendly** — `--json` output, non-zero exit on failure, `--bail` flag
 - **Protocol-accurate** — implements MCP spec `2025-11-25` including capability negotiation, session lifecycle, and notification handling
+- **Browser UI** — full-featured web inspector with Protocol tab (DevTools-style request/response log), dark/light mode, and live test runner
+- **Plugin system** — extend with reporters (`html`, `junit`) and custom commands via `--plugin` or `workbench.config.yaml`
 
 ---
 
 ## Installation
 
 ```bash
-npm install -g mcp-workbench
-# or
-pnpm add -g mcp-workbench
+# Primary — scoped package
+npm install -g @raeseoklee/mcp-workbench
+
+# Alternative — convenience wrapper
+npm install -g mcp-workbench-cli
 ```
+
+Both provide the same `mcp-workbench` command.
+
+> **Why not `npm install -g mcp-workbench`?**
+> The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MCP server aggregator).
+> Our project is a testing/validation platform — a completely different tool.
+> See [docs/npm-distribution.md](docs/npm-distribution.md) for details.
 
 ---
 
@@ -56,7 +67,7 @@ pnpm add -g mcp-workbench
 Install the CLI and the bundled demo server, then inspect it:
 
 ```bash
-npm install -g mcp-workbench @mcp-workbench/demo-server
+npm install -g @raeseoklee/mcp-workbench @mcp-workbench/demo-server
 
 mcp-workbench inspect --command mcp-workbench-demo
 ```
@@ -112,6 +123,20 @@ Try the included fixture against the demo server:
 ```bash
 mcp-workbench run examples/fixtures/demo-server.yaml --verbose
 ```
+
+### Start the Web UI
+
+MCP Workbench ships a browser-based inspector alongside the CLI. Start both servers in two terminals:
+
+```bash
+# Terminal 1 — API server
+node apps/api/dist/index.js
+
+# Terminal 2 — Web UI (opens at http://localhost:5173)
+pnpm --filter @mcp-workbench/web dev
+```
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser. Enter your server details on the Inspect page to connect and explore tools, resources, prompts, and the live Protocol log.
 
 ---
 
@@ -255,7 +280,17 @@ To add a new locale, see [docs/i18n.md](docs/i18n.md).
 
 ## Architecture
 
-MCP Workbench is a pnpm monorepo. The public package is `mcp-workbench`. Internal libraries are published under `@mcp-workbench/*`.
+MCP Workbench is a pnpm monorepo.
+
+| Name | npm package | Description |
+|------|-------------|-------------|
+| **MCP Workbench** | Product name | The overall project brand |
+| `@raeseoklee/mcp-workbench` | Primary npm package | Full CLI implementation |
+| `mcp-workbench-cli` | Convenience wrapper | Thin forwarder to the scoped package |
+| `mcp-workbench` | CLI command | Binary name installed by both packages |
+| `mcp-workbench` / `mcp-workbench-vscode` | GitHub repos | Source code repositories |
+
+Internal libraries are published under `@mcp-workbench/*`.
 
 ```
 apps/
@@ -291,7 +326,7 @@ node apps/api/dist/index.js
 pnpm --filter @mcp-workbench/web dev
 ```
 
-Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Timeline.
+Connect to any MCP server from the Inspect page, then browse Tools, Resources, Prompts, and watch the live Protocol log.
 
 To try it with the demo server, enter these values on the Inspect page:
 
@@ -301,7 +336,55 @@ To try it with the demo server, enter these values on the Inspect page:
 | Command | `mcp-workbench-demo` |
 | Args | *(leave empty)* |
 
-![Tool execution](docs/assets/tool-execution.gif)
+**Protocol Inspector** — the Protocol tab shows every MCP message (initialize, tools/call, resources/read, etc.) as a DevTools-style request/response log with syntax-highlighted JSON payloads, status indicators, and duration timings.
+
+The UI supports dark and light mode — toggle with the `☀`/`☾` button in the sidebar.
+
+![Tool execution — Web UI](docs/assets/tool-execution.gif)
+
+External tools (editor extensions, CI scripts) should rely on the [CLI JSON contract](docs/integration-contract.md).
+
+---
+
+## Plugins
+
+MCP Workbench has an extensible plugin system for reporters and custom commands.
+
+```bash
+# Generate an HTML report after running tests
+mcp-workbench run tests.yaml \
+  --plugin @mcp-workbench/plugin-html-report \
+  --reporter html
+
+# Generate JUnit XML for CI (GitHub Actions, Jenkins, etc.)
+mcp-workbench run tests.yaml \
+  --plugin @mcp-workbench/plugin-junit \
+  --reporter junit \
+  --reporter-output test-results.xml
+```
+
+Or configure plugins permanently in `workbench.config.yaml`:
+
+```yaml
+plugins:
+  - "@mcp-workbench/plugin-html-report"
+  - "@mcp-workbench/plugin-junit"
+```
+
+See [docs/plugins.md](docs/plugins.md) for the full plugin guide including how to build your own.
+
+---
+
+## VS Code Extension
+
+The official VS Code extension is in a separate repository: **[mcp-workbench-vscode](https://github.com/raeseoklee/mcp-workbench-vscode)**
+
+- Run specs from the editor title bar or Command Palette
+- Test Results tree view (suite → test → assertion)
+- Failed assertions appear in the Problems panel
+- Configurable CLI path and timeout
+
+See [docs/vscode-extension.md](docs/vscode-extension.md) for details.
 
 ---
 

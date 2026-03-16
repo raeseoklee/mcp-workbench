@@ -1,8 +1,15 @@
 import { Session } from "@mcp-workbench/session-engine";
 import { StdioTransport } from "@mcp-workbench/transport-stdio";
 import { HttpTransport } from "@mcp-workbench/transport-http";
+import { ClientSimulator } from "@mcp-workbench/client-simulator";
 
 // ─── Config types ─────────────────────────────────────────────────────────────
+
+export interface SimulatorConfig {
+  roots?: Array<{ name: string; uri: string }>;
+  sampling?: { preset?: { text: string; model?: string } };
+  elicitation?: { action: "accept" | "decline" };
+}
 
 export interface StdioConfig {
   transport: "stdio";
@@ -10,15 +17,42 @@ export interface StdioConfig {
   args?: string[];
   cwd?: string;
   env?: Record<string, string>;
+  simulator?: SimulatorConfig;
 }
 
 export interface HttpConfig {
   transport: "streamable-http";
   url: string;
   headers?: Record<string, string>;
+  simulator?: SimulatorConfig;
 }
 
 export type SessionConfig = StdioConfig | HttpConfig;
+
+function buildSimulator(cfg: SimulatorConfig): ClientSimulator {
+  return new ClientSimulator({
+    roots: cfg.roots ? { roots: cfg.roots } : undefined,
+    sampling: cfg.sampling?.preset
+      ? {
+          preset: {
+            role: "assistant",
+            content: { type: "text", text: cfg.sampling.preset.text },
+            model: cfg.sampling.preset.model ?? "preset",
+          },
+        }
+      : cfg.sampling
+        ? {}
+        : undefined,
+    elicitation: cfg.elicitation
+      ? {
+          preset:
+            cfg.elicitation.action === "accept"
+              ? { action: "accept", content: {} }
+              : { action: "decline" },
+        }
+      : undefined,
+  });
+}
 
 // ─── Store ────────────────────────────────────────────────────────────────────
 
@@ -50,8 +84,11 @@ export async function createSession(config: SessionConfig): Promise<SessionEntry
     await transport.connect();
   }
 
+  const simulator = config.simulator ? buildSimulator(config.simulator) : undefined;
+
   const session = new Session(transport, {
     clientInfo: { name: "mcp-workbench-web", version: "0.1.0" },
+    simulator,
   });
   await session.connect();
 

@@ -58,6 +58,7 @@ export class Session extends EventEmitter {
   private _status: SessionStatus = "idle";
   readonly timeline = new Timeline();
   private negotiatedSession: NegotiatedSession | null = null;
+  private initializeRequestId: string | number | null = null;
 
   constructor(
     private readonly transport: Transport,
@@ -77,6 +78,7 @@ export class Session extends EventEmitter {
   // ─── Lifecycle ──────────────────────────────────────────────────────────────
 
   async connect(): Promise<NegotiatedSession> {
+    this.initializeRequestId = null;
     this.setStatus("connecting");
 
     this.timeline.record({
@@ -232,16 +234,21 @@ export class Session extends EventEmitter {
 
   private classifyOutbound(msg: JsonRpcMessage): TimelineEvent["kind"] {
     if (isRequest(msg)) {
-      return msg.method === "initialize" ? "initialize-request" : "request";
+      if (msg.method === "initialize") {
+        this.initializeRequestId = msg.id;
+        return "initialize-request";
+      }
+      return "request";
     }
     return "notification";
   }
 
   private classifyInbound(msg: JsonRpcMessage): TimelineEvent["kind"] {
     if (isResponse(msg)) {
-      return isRequest({ ...msg, method: "" } as never)
-        ? "response"
-        : "response";
+      if (this.initializeRequestId !== null && msg.id === this.initializeRequestId) {
+        return "initialize-response";
+      }
+      return "response";
     }
     if (isNotification(msg)) return "notification";
     return "response";

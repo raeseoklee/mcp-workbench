@@ -1,9 +1,9 @@
 {
-  "name": "mcp-workbench",
-  "version": "0.1.0",
+  "name": "@raeseoklee/mcp-workbench",
+  "version": "0.1.1",
   "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",
-  "keywords": ["mcp", "model-context-protocol", "testing", "cli", "developer-tools"],
+  "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -21,17 +21,19 @@
   },
   "main": "./dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "node build.mjs",
     "dev": "tsc --watch",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "start": "node dist/index.js"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@mcp-workbench/protocol-kernel": "workspace:*",
     "@mcp-workbench/session-engine": "workspace:*",
     "@mcp-workbench/transport-stdio": "workspace:*",
@@ -40,14 +42,17 @@
     "@mcp-workbench/assertions": "workspace:*",
     "@mcp-workbench/client-simulator": "workspace:*",
     "@mcp-workbench/i18n": "workspace:*",
+    "@mcp-workbench/plugin-runtime": "workspace:*",
     "commander": "^12.0.0",
     "chalk": "^5.3.0",
     "ora": "^8.0.0",
-    "yaml": "^2.5.0"
-  },
-  "devDependencies": {
+    "yaml": "^2.5.0",
+    "esbuild": "^0.24.0",
     "typescript": "^5.6.0",
     "vitest": "^2.0.0",
     "@types/node": "^22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

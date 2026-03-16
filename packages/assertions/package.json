@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/assertions",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "Assertion engine for MCP test results",

@@ -1,5 +1,6 @@
 {
   "name": "@mcp-workbench/client-simulator",
+  "private": true,
   "version": "0.1.0",
   "type": "module",
   "description": "MCP Workbench client capability simulator — roots, sampling, elicitation",
