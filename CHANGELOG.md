@@ -8,12 +8,49 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [0.3.0] — 2026-03-16
+
+### Added
+
+#### `mcp-workbench generate` command
+- Auto-generate YAML test spec scaffolds from a live MCP server
+- Discover tools, resources, and prompts via server connection
+- Arg inference from `inputSchema` with TODO placeholders for unknown values
+- `--depth shallow` (default) — list-based skeleton generation
+- `--depth deep` — call safe tools, add response-based assertions
+- Safety classification: skip destructive tools (`create`, `delete`, `send`, etc.) by default
+- `--allow-side-effects` flag to override safety checks
+- `--header` for authenticated servers (repeatable)
+- `--include` / `--exclude` filters for capabilities
+- `-o` / `--stdout` output modes
+- `packages/spec-generator` — new package with discovery, inference, safety, and emitter modules
+
+#### Transport
+- POST-only Streamable HTTP support (fallback when GET SSE returns non-200)
+- MCP protocol versions: added `2025-06-18` and `2024-10-07` (now supports all 5 official versions)
+
+#### Demo server
+- Fixed `list_roots` tool: use `server.listRoots()` instead of `extra.sendRequest`
+- Read version from `package.json` instead of hardcoding
+- Added shebang for proper `bin` execution
+- Renamed from `demo-server` to `demo-mcp` across codebase
+
+#### Documentation
+- Korean README (`README.ko.md`) with language toggle for both repos
+- `docs/generate.md` — full generate command guide
+- `docs/npm-distribution.md` — npm packaging strategy
+
 ### Changed
 
-- **npm distribution strategy** — CLI now published as `@mcp-workbench/cli` (scoped package) because the unscoped `mcp-workbench` name is taken by an unrelated project
-- Added `mcp-workbench-cli` convenience wrapper package for users who prefer an unscoped install
-- CLI binary name remains `mcp-workbench` — no change to command usage
-- Product branding remains **MCP Workbench**
+- **npm distribution** — all publishable packages under `@mcp-workbench/` org scope
+- CLI package: `@mcp-workbench/cli`
+- Demo: `@mcp-workbench/demo-mcp`
+- Plugins: `@mcp-workbench/plugin-sdk`, `@mcp-workbench/plugin-html-report`, `@mcp-workbench/plugin-junit`
+- Convenience wrapper: `mcp-workbench-cli`
+- CI updated to actions/checkout@v5 and actions/setup-node@v5
+- VS Code extension: LICENSE replaced with standard Apache 2.0 full text
 
 ---
 
