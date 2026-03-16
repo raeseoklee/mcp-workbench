@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Demo MCP server using the official @modelcontextprotocol/sdk.
  * Provides a simple weather tool, a note resource, and a greeting prompt —
