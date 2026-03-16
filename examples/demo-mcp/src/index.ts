@@ -96,12 +96,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 
   if (name === "list_roots") {
     try {
-      // Ask the client for its roots via the session
-      const result = await extra.sendRequest(
-        { method: "roots/list", params: {} },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        {} as any,
-      ) as { roots: Array<{ uri: string; name?: string }> };
+      // Ask the client for its roots via the server's built-in method
+      const result = await server.listRoots();
       const lines = result.roots.map((r) => `${r.uri}${r.name ? ` (${r.name})` : ""}`);
       return {
         content: [{
