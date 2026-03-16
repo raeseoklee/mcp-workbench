@@ -58,11 +58,12 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
     exclude: parseSet(opts.exclude),
   };
 
-  const spinner = ora("Connecting to server...").start();
+  const useSpinner = !opts.stdout;
+  const spinner = useSpinner ? ora("Connecting to server...").start() : null;
 
   try {
     const result = await generate(genOpts);
-    spinner.stop();
+    spinner?.stop();
 
     if (opts.stdout) {
       process.stdout.write(result.yaml);
@@ -92,7 +93,7 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
       console.log();
     }
   } catch (err) {
-    spinner.fail("Generation failed");
+    spinner?.fail("Generation failed");
     console.error(chalk.red(err instanceof Error ? err.message : String(err)));
     process.exit(1);
   }

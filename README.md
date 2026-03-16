@@ -33,6 +33,7 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 
 - **`mcp-workbench inspect`** — connect to any MCP server and explore its capabilities, tools, resources, and prompts
 - **`mcp-workbench run`** — execute YAML-defined test suites with rich assertions
+- **`mcp-workbench generate`** — auto-generate YAML test spec scaffolds from a live server (tools, resources, prompts)
 - **Assertion engine** — `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema`, and more
 - **Transport support** — `stdio` (local servers), `streamable-http` (remote servers), legacy SSE
 - **Client simulator** — inject roots, sampling presets, and elicitation handlers so you can test server→client capability flows
@@ -254,6 +255,27 @@ Options:
   -v, --verbose        Show all assertion details
   --lang <locale>      Output language: en | ko  (env: MCP_WORKBENCH_LANG)
 ```
+
+### `mcp-workbench generate`
+
+```
+mcp-workbench generate [options]
+
+Options:
+  --transport <kind>   stdio | streamable-http  (default: stdio)
+  --command <cmd>      Command to run (stdio)
+  --args <args>        Space-separated arguments (stdio)
+  --url <url>          Server URL (HTTP)
+  --header <h>         HTTP header "Key: Value" (repeatable)
+  --timeout <ms>       Connection timeout
+  --include <list>     Comma-separated: tools,resources,prompts
+  --exclude <list>     Comma-separated capabilities to skip
+  -o, --output <file>  Write spec to file
+  --stdout             Print spec to stdout
+  --overwrite          Overwrite existing output file
+```
+
+See [docs/generate.md](docs/generate.md) for the full guide.
 
 ---
 
