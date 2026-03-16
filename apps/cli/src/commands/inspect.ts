@@ -13,6 +13,7 @@ export interface InspectCommandOptions {
   command?: string;
   args?: string;
   url?: string;
+  header?: string[];
   json?: boolean;
   timeout?: string;
 }
@@ -37,7 +38,15 @@ export async function inspectCommand(opts: InspectCommandOptions): Promise<void>
       console.error(chalk.red(t("cli.inspect.error.noUrl")));
       process.exit(1);
     }
-    const tr = new HttpTransport({ url: opts.url });
+    const headers: Record<string, string> = {};
+    for (const h of opts.header ?? []) {
+      const idx = h.indexOf(":");
+      if (idx !== -1) headers[h.slice(0, idx).trim()] = h.slice(idx + 1).trim();
+    }
+    const tr = new HttpTransport({
+      url: opts.url,
+      headers: Object.keys(headers).length > 0 ? headers : undefined,
+    });
     await tr.connect();
     rawTransport = tr;
   }
