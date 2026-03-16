@@ -33,6 +33,7 @@ MCP Workbench가 그 공백을 채웁니다: **저장된 테스트, 회귀 diff,
 
 - **`mcp-workbench inspect`** — 모든 MCP 서버에 연결해 기능, 도구, 리소스, 프롬프트 탐색
 - **`mcp-workbench run`** — YAML로 정의된 테스트 스위트를 풍부한 어서션과 함께 실행
+- **`mcp-workbench generate`** — 라이브 서버에서 도구/리소스/프롬프트를 탐색해 YAML 테스트 스펙 자동 생성
 - **어서션 엔진** — `status`, `jsonpath`, `executionError`, `protocolError`, `contentType`, `count`, `notEmpty`, `equals`, `schema` 등
 - **트랜스포트 지원** — `stdio`(로컬 서버), `streamable-http`(원격 서버), 레거시 SSE
 - **클라이언트 시뮬레이터** — roots, sampling 프리셋, elicitation 핸들러를 주입해 서버→클라이언트 기능 흐름 테스트
@@ -254,6 +255,27 @@ Options:
   -v, --verbose        모든 어서션 상세 정보 표시
   --lang <locale>      출력 언어: en | ko  (환경변수: MCP_WORKBENCH_LANG)
 ```
+
+### `mcp-workbench generate`
+
+```
+mcp-workbench generate [options]
+
+Options:
+  --transport <kind>   stdio | streamable-http  (기본값: stdio)
+  --command <cmd>      실행할 명령 (stdio)
+  --args <args>        공백으로 구분된 인수 (stdio)
+  --url <url>          서버 URL (HTTP)
+  --header <h>         HTTP 헤더 "Key: Value" (반복 가능)
+  --timeout <ms>       연결 타임아웃
+  --include <list>     쉼표 구분: tools,resources,prompts
+  --exclude <list>     제외할 기능 (쉼표 구분)
+  -o, --output <file>  스펙을 파일에 저장
+  --stdout             스펙을 stdout으로 출력
+  --overwrite          기존 출력 파일 덮어쓰기
+```
+
+자세한 내용은 [docs/generate.md](docs/generate.md)를 참조하세요.
 
 ---
 
