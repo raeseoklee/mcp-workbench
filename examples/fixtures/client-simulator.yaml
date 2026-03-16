@@ -4,8 +4,7 @@ apiVersion: mcp-workbench.dev/v0alpha1
 server:
   transport: stdio
   command: node
-  args: ["../../examples/demo-mcp/dist/index.js"]
-  cwd: examples/demo-mcp
+  args: ["examples/demo-mcp/dist/index.js"]
 
 # ─── Client capabilities ──────────────────────────────────────────────────────
 # Declare which server→client capabilities the simulated client supports.
@@ -62,6 +61,5 @@ tests:
       - kind: contains
         path: content[0].text
         value: "Seoul"
-      - kind: equals
-        path: isError
-        value: null
+      - kind: executionError
+        equals: false
