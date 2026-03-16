@@ -38,7 +38,11 @@ export class HttpTransport implements Transport {
     this.errorHandler = handler;
   };
 
-  /** Open the SSE stream for receiving server messages and notifications. */
+  /**
+   * Open the SSE stream for receiving server messages and notifications.
+   * If the server does not support GET SSE (e.g. POST-only Streamable HTTP),
+   * falls back to POST-only mode where responses arrive inline with each POST.
+   */
   async connect(): Promise<void> {
     this.sseController = new AbortController();
     const { signal } = this.sseController;
@@ -51,28 +55,31 @@ export class HttpTransport implements Transport {
       headers["Mcp-Session-Id"] = this.sessionId;
     }
 
-    const response = await fetch(this.opts.url, {
-      method: "GET",
-      headers,
-      signal,
-    });
+    try {
+      const response = await fetch(this.opts.url, {
+        method: "GET",
+        headers,
+        signal,
+      });
 
-    if (!response.ok) {
-      throw new McpTransportError(
-        `SSE connect failed: ${response.status} ${response.statusText}`,
-      );
-    }
-
-    const newSessionId = response.headers.get("Mcp-Session-Id");
-    if (newSessionId) this.sessionId = newSessionId;
-
-    // Read SSE stream
-    this.consumeSseStream(response.body!, signal).catch((err: unknown) => {
-      if ((err as Error)?.name !== "AbortError") {
-        this.errorHandler?.(new McpTransportError("SSE stream error", err));
-        this.closeHandler?.();
+      if (!response.ok) {
+        // Server does not support GET SSE — fall back to POST-only mode
+        return;
       }
-    });
+
+      const newSessionId = response.headers.get("Mcp-Session-Id");
+      if (newSessionId) this.sessionId = newSessionId;
+
+      // Read SSE stream
+      this.consumeSseStream(response.body!, signal).catch((err: unknown) => {
+        if ((err as Error)?.name !== "AbortError") {
+          this.errorHandler?.(new McpTransportError("SSE stream error", err));
+          this.closeHandler?.();
+        }
+      });
+    } catch {
+      // Network error on GET — fall back to POST-only mode
+    }
   }
 
   async send(message: JsonRpcMessage): Promise<void> {
