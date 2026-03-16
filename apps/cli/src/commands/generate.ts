@@ -2,7 +2,7 @@ import { writeFileSync, existsSync } from "fs";
 import chalk from "chalk";
 import ora from "ora";
 import { generate } from "@mcp-workbench/spec-generator";
-import type { GenerateOptions } from "@mcp-workbench/spec-generator";
+import type { GenerateOptions, DiscoveryResult } from "@mcp-workbench/spec-generator";
 
 interface GenerateCommandOpts {
   transport: string;
@@ -82,23 +82,35 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
 
     // Summary
     if (!opts.stdout || opts.output) {
-      const info = result.serverInfo;
+      const d = result.discovery;
       console.log();
       console.log(chalk.bold("  mcp-workbench generate"));
       console.log();
-      if (info) {
-        console.log(`  Server:  ${info.name} v${info.version} (${info.protocol})`);
+
+      // Initialize status
+      if (d.initialize.status === "success" && result.serverInfo) {
+        console.log(`  Server:    ${result.serverInfo.name} v${result.serverInfo.version} (${result.serverInfo.protocol})`);
+      } else if (d.initialize.status === "failed") {
+        console.log(`  ${chalk.yellow("⚠")} initialize failed: ${d.initialize.error}`);
+        console.log(`  ${chalk.dim("  Continuing with partial discovery...")}`);
       }
-      console.log(`  Tools:   ${result.counts.tools}`);
-      console.log(`  Resources: ${result.counts.resources}`);
-      console.log(`  Prompts: ${result.counts.prompts}`);
-      console.log(`  Tests:   ${chalk.green(result.counts.tests)} generated`);
+
+      // Per-category status
+      console.log();
+      printDiscovery("tools", d.tools, result.counts.tools);
+      printDiscovery("resources", d.resources, result.counts.resources);
+      printDiscovery("prompts", d.prompts, result.counts.prompts);
+
+      console.log();
+      console.log(`  Tests:     ${chalk.green(result.counts.tests)} generated`);
+
       if (result.skipped.length > 0) {
-        console.log(`  Skipped: ${chalk.yellow(result.skipped.length)} tools`);
+        console.log(`  Skipped:   ${chalk.yellow(result.skipped.length)} tools`);
         for (const s of result.skipped) {
           console.log(`    ${chalk.dim("→")} ${s.tool}: ${s.reason}`);
         }
       }
+
       if (opts.output) {
         console.log();
         console.log(`  ${chalk.green("Written to")} ${opts.output}`);
@@ -109,5 +121,16 @@ export async function generateCommand(opts: GenerateCommandOpts): Promise<void> 
     spinner?.fail("Generation failed");
     console.error(chalk.red(err instanceof Error ? err.message : String(err)));
     process.exit(1);
+  }
+}
+
+function printDiscovery(name: string, result: DiscoveryResult<unknown>, count: number): void {
+  const padded = (name + ":").padEnd(12);
+  if (result.status === "success") {
+    console.log(`  ${padded} ${chalk.green("✓")} ${count} discovered`);
+  } else if (result.status === "failed") {
+    console.log(`  ${padded} ${chalk.red("✗")} failed (${result.error})`);
+  } else {
+    console.log(`  ${padded} ${chalk.dim("○")} skipped`);
   }
 }

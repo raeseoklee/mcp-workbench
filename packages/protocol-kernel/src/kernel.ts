@@ -368,8 +368,21 @@ export class ProtocolKernel extends EventEmitter {
   }
 
   private handleResponse(msg: JsonRpcResponse): void {
-    // id can be null for error responses that have no correlation
-    if (msg.id === null) return;
+    // id: null error responses — reject the only pending request if there is exactly one
+    if (msg.id === null || msg.id === undefined) {
+      if (isError(msg) && this.pending.size === 1) {
+        const [, entry] = [...this.pending.entries()][0]!;
+        clearTimeout(entry.timer);
+        this.pending.clear();
+        entry.reject(
+          new McpProtocolError(msg.error.message, {
+            code: msg.error.code,
+            data: msg.error.data,
+          }),
+        );
+      }
+      return;
+    }
     const pending = this.pending.get(msg.id);
     if (!pending) return;
 
