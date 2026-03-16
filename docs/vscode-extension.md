@@ -11,7 +11,11 @@ The official VS Code extension for MCP Workbench is maintained in a separate rep
 1. Install the MCP Workbench CLI:
 
 ```bash
-npm install -g mcp-workbench
+# Primary
+npm install -g @raeseoklee/mcp-workbench
+
+# Or alternative convenience wrapper
+npm install -g mcp-workbench-cli
 ```
 
 2. Install the VS Code extension from the Marketplace (search "MCP Workbench")

@@ -1,0 +1,32 @@
+{
+  "name": "mcp-workbench-cli",
+  "version": "0.1.0",
+  "description": "MCP Workbench CLI — convenience wrapper for @raeseoklee/mcp-workbench",
+  "type": "module",
+  "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raeseoklee/mcp-workbench.git",
+    "directory": "packages/npm-wrapper-cli"
+  },
+  "homepage": "https://github.com/raeseoklee/mcp-workbench#readme",
+  "bugs": {
+    "url": "https://github.com/raeseoklee/mcp-workbench/issues"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "bin": {
+    "mcp-workbench": "./bin/mcp-workbench.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "dependencies": {
+    "@raeseoklee/mcp-workbench": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

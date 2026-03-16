@@ -1,9 +1,9 @@
 {
-  "name": "mcp-workbench",
+  "name": "@raeseoklee/mcp-workbench",
   "version": "0.1.0",
   "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",
-  "keywords": ["mcp", "model-context-protocol", "testing", "cli", "developer-tools"],
+  "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

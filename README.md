@@ -44,10 +44,19 @@ MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready asse
 ## Installation
 
 ```bash
-npm install -g mcp-workbench
-# or
-pnpm add -g mcp-workbench
+# Primary — scoped package
+npm install -g @raeseoklee/mcp-workbench
+
+# Alternative — convenience wrapper
+npm install -g mcp-workbench-cli
 ```
+
+Both provide the same `mcp-workbench` command.
+
+> **Why not `npm install -g mcp-workbench`?**
+> The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MCP server aggregator).
+> Our project is a testing/validation platform — a completely different tool.
+> See [docs/npm-distribution.md](docs/npm-distribution.md) for details.
 
 ---
 
@@ -58,7 +67,7 @@ pnpm add -g mcp-workbench
 Install the CLI and the bundled demo server, then inspect it:
 
 ```bash
-npm install -g mcp-workbench @mcp-workbench/demo-server
+npm install -g @raeseoklee/mcp-workbench @mcp-workbench/demo-server
 
 mcp-workbench inspect --command mcp-workbench-demo
 ```
@@ -271,7 +280,17 @@ To add a new locale, see [docs/i18n.md](docs/i18n.md).
 
 ## Architecture
 
-MCP Workbench is a pnpm monorepo. The public package is `mcp-workbench`. Internal libraries are published under `@mcp-workbench/*`.
+MCP Workbench is a pnpm monorepo.
+
+| Name | npm package | Description |
+|------|-------------|-------------|
+| **MCP Workbench** | Product name | The overall project brand |
+| `@raeseoklee/mcp-workbench` | Primary npm package | Full CLI implementation |
+| `mcp-workbench-cli` | Convenience wrapper | Thin forwarder to the scoped package |
+| `mcp-workbench` | CLI command | Binary name installed by both packages |
+| `mcp-workbench` / `mcp-workbench-vscode` | GitHub repos | Source code repositories |
+
+Internal libraries are published under `@mcp-workbench/*`.
 
 ```
 apps/
