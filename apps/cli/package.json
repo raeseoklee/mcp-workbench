@@ -1,6 +1,6 @@
 {
   "name": "@raeseoklee/mcp-workbench",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP Workbench — test, inspect, and validate MCP servers",
   "type": "module",
   "keywords": ["mcp", "model-context-protocol", "mcp-server", "mcp-testing", "mcp-workbench", "testing", "cli", "developer-tools", "ai-tooling", "llm-tooling"],
@@ -21,7 +21,8 @@
   },
   "main": "./dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "node build.mjs",
