@@ -8,6 +8,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `examples/demo-mcp/server-http.mjs` — Streamable HTTP demo server for local testing of the `streamable-http` transport
+
+### Fixed
+
+- `transport-http`: `consumeSseStream` no longer fires `closeHandler` when an inline POST response SSE stream ends; only the persistent GET SSE stream triggers session close
+
 ---
 
 ## [0.5.0] — 2026-03-16

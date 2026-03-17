@@ -70,8 +70,8 @@ export class HttpTransport implements Transport {
       const newSessionId = response.headers.get("Mcp-Session-Id");
       if (newSessionId) this.sessionId = newSessionId;
 
-      // Read SSE stream
-      this.consumeSseStream(response.body!, signal).catch((err: unknown) => {
+      // Read SSE stream — fire closeHandler when the persistent GET stream ends
+      this.consumeSseStream(response.body!, signal, true).catch((err: unknown) => {
         if ((err as Error)?.name !== "AbortError") {
           this.errorHandler?.(new McpTransportError("SSE stream error", err));
           this.closeHandler?.();
@@ -127,8 +127,8 @@ export class HttpTransport implements Transport {
         this.messageHandler?.(msg);
       }
     } else if (contentType.includes("text/event-stream")) {
-      // Streaming response - consume inline
-      await this.consumeSseStream(response.body!, new AbortController().signal);
+      // Streaming response - consume inline; do NOT fire closeHandler when this ends
+      await this.consumeSseStream(response.body!, new AbortController().signal, false);
     } else if (response.status === 202) {
       // Accepted - response will arrive via SSE channel
     } else if (!response.ok) {
@@ -170,6 +170,7 @@ export class HttpTransport implements Transport {
   private async consumeSseStream(
     body: ReadableStream<Uint8Array>,
     signal: AbortSignal,
+    fireOnClose: boolean,
   ): Promise<void> {
     const reader = body.getReader();
     const decoder = new TextDecoder();
@@ -179,7 +180,7 @@ export class HttpTransport implements Transport {
       while (!signal.aborted) {
         const { done, value } = await reader.read();
         if (done) {
-          this.closeHandler?.();
+          if (fireOnClose) this.closeHandler?.();
           break;
         }
         buffer += decoder.decode(value, { stream: true });
