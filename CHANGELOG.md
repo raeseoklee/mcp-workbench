@@ -8,6 +8,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [0.5.1] — 2026-03-17
+
 ### Added
 
 - `examples/demo-mcp/server-http.mjs` — Streamable HTTP demo server for local testing of the `streamable-http` transport
