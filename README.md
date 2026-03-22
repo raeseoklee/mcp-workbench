@@ -312,7 +312,7 @@ MCP Workbench is a pnpm monorepo.
 | `@mcp-workbench/cli` | Primary npm package | Full CLI implementation |
 | `mcp-workbench-cli` | Convenience wrapper | Thin forwarder to the scoped package |
 | `mcp-workbench` | CLI command | Binary name installed by both packages |
-| `mcp-workbench` / `mcp-workbench-vscode` | GitHub repos | Source code repositories |
+| `mcp-workbench` / `mcp-workbench-vscode` / `mcp-workbench-mcp-server` | GitHub repos | Source code repositories |
 
 Internal libraries are published under `@mcp-workbench/*`.
 
@@ -409,6 +409,38 @@ The official VS Code extension is in a separate repository: **[mcp-workbench-vsc
 - Configurable CLI path and timeout
 
 See [docs/vscode-extension.md](docs/vscode-extension.md) for details.
+
+---
+
+## MCP Server (Agent Integration)
+
+Use MCP Workbench from any MCP host (Claude Desktop, Cursor, etc.) via the companion **[mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server)** project.
+
+It exposes the same inspect / generate / run capabilities as MCP tools so AI agents can drive the entire workflow:
+
+| Tool | Description |
+|------|-------------|
+| `inspect_server` | Summarise a server's capabilities |
+| `generate_spec` | Generate a YAML test spec and return it as text |
+| `run_spec` | Run a spec (inline text or file path) and return structured results |
+| `explain_failure` | Classify failure causes (auth, placeholder, protocol, …) |
+
+```json
+// claude_desktop_config.json
+{
+  "mcpServers": {
+    "mcp-workbench": {
+      "command": "node",
+      "args": ["/path/to/mcp-workbench-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+> **Entry points:**
+> `@mcp-workbench/cli` is the human-facing runner.
+> `mcp-workbench-mcp-server` is the agent-facing adapter.
+> Both use the same core engine.
 
 ---
 

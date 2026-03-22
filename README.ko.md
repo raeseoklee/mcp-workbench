@@ -312,7 +312,7 @@ MCP Workbench는 pnpm 모노레포입니다.
 | `@mcp-workbench/cli` | 기본 npm 패키지 | 전체 CLI 구현 |
 | `mcp-workbench-cli` | 편의 래퍼 | 스코프 패키지로 전달하는 얇은 포워더 |
 | `mcp-workbench` | CLI 커맨드 | 두 패키지 모두가 설치하는 바이너리 이름 |
-| `mcp-workbench` / `mcp-workbench-vscode` | GitHub 저장소 | 소스 코드 저장소 |
+| `mcp-workbench` / `mcp-workbench-vscode` / `mcp-workbench-mcp-server` | GitHub 저장소 | 소스 코드 저장소 |
 
 내부 라이브러리는 `@mcp-workbench/*` 아래에 배포됩니다.
 
@@ -409,6 +409,38 @@ plugins:
 - CLI 경로와 타임아웃 설정 가능
 
 자세한 내용은 [docs/vscode-extension.md](docs/vscode-extension.md)를 참고하세요.
+
+---
+
+## MCP 서버 (에이전트 연동)
+
+Claude Desktop, Cursor 등 MCP 호스트에서 MCP Workbench를 직접 사용하려면 별도 프로젝트인 **[mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server)**를 이용하세요.
+
+inspect / generate / run 기능을 MCP tool로 노출해 AI 에이전트가 전체 워크플로를 직접 구동할 수 있습니다:
+
+| 도구 | 설명 |
+|------|------|
+| `inspect_server` | 서버 capability 요약 |
+| `generate_spec` | YAML 테스트 스펙 생성 후 텍스트로 반환 |
+| `run_spec` | 스펙(인라인 텍스트 또는 파일 경로)을 실행하고 구조화된 결과 반환 |
+| `explain_failure` | 실패 원인 분류 (인증, placeholder, 프로토콜 등) |
+
+```json
+// claude_desktop_config.json
+{
+  "mcpServers": {
+    "mcp-workbench": {
+      "command": "node",
+      "args": ["/path/to/mcp-workbench-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+> **진입점 구분:**
+> `@mcp-workbench/cli`는 사람용 실행기.
+> `mcp-workbench-mcp-server`는 에이전트용 MCP 어댑터.
+> 둘 다 동일한 core 엔진을 사용합니다.
 
 ---
 
