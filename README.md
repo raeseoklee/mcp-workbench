@@ -2,16 +2,13 @@
 
 **English** | [한국어](README.ko.md)
 
-**A quality platform for MCP server developers.**
+A developer toolkit for testing, inspecting, and validating [Model Context Protocol](https://modelcontextprotocol.io) servers.
 
-Test, inspect, and validate [Model Context Protocol](https://modelcontextprotocol.io) servers — from the command line or in CI.
+Think of it as a **Swagger UI + CLI + agent interface for MCP**.
 
 [![CI](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml/badge.svg)](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@mcp-workbench/cli)](https://www.npmjs.com/package/@mcp-workbench/cli)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-
-```
-MCP Workbench = Inspector + Contract Test + Regression Diff + CI Runner
-```
 
 ![MCP Workbench demo](docs/assets/demo.gif)
 
@@ -19,8 +16,8 @@ MCP Workbench = Inspector + Contract Test + Regression Diff + CI Runner
 
 ## Why MCP Workbench?
 
-The MCP ecosystem has debugging tools (Inspector) and SDKs, but no dedicated quality validation platform.
-MCP Workbench fills that gap: **saved tests, regression diffs, and CI-ready assertion runs**.
+MCP is becoming the standard interface for AI models to connect with external tools. But the ecosystem still lacks proper developer tooling for testing and validating servers.
+MCP Workbench fills that gap — **interactive inspection, contract testing, regression diffs, and CI-ready execution**.
 
 | Tool | Interactive Debug | Saved Tests | Regression Diff | CI Runner |
 |------|:-----------------:|:-----------:|:---------------:|:---------:|
@@ -65,17 +62,13 @@ Both provide the same `mcp-workbench` command.
 
 ## Quick Start
 
-### Try it now (zero setup)
-
-Install the CLI and the bundled demo server, then inspect it:
+### Try it now (zero install)
 
 ```bash
-npm install -g @mcp-workbench/cli @mcp-workbench/demo-mcp
-
-mcp-workbench inspect --command mcp-workbench-demo
+npx @mcp-workbench/cli inspect --command npx --args "-y @mcp-workbench/demo-mcp"
 ```
 
-The demo server exposes a weather tool, note resources, and a greeting prompt — everything you need to explore all of MCP Workbench's features without writing a single line of server code.
+This connects to the bundled demo server and displays its tools, resources, and prompts — no installation required.
 
 ### Inspect a server
 
@@ -425,13 +418,19 @@ It exposes the same inspect / generate / run capabilities as MCP tools so AI age
 | `run_spec` | Run a spec (inline text or file path) and return structured results |
 | `explain_failure` | Classify failure causes (auth, placeholder, protocol, …) |
 
-```json
-// claude_desktop_config.json
+```bash
+# Claude Code
+claude mcp add mcp-workbench -- npx -y @mcp-workbench/mcp-server
+
+# OpenAI Codex CLI
+codex mcp add mcp-workbench -- npx -y @mcp-workbench/mcp-server
+
+# Claude Desktop / Cursor (claude_desktop_config.json or .cursor/mcp.json)
 {
   "mcpServers": {
     "mcp-workbench": {
-      "command": "node",
-      "args": ["/path/to/mcp-workbench-mcp-server/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@mcp-workbench/mcp-server"]
     }
   }
 }
@@ -441,6 +440,18 @@ It exposes the same inspect / generate / run capabilities as MCP tools so AI age
 > `@mcp-workbench/cli` is the human-facing runner.
 > `mcp-workbench-mcp-server` is the agent-facing adapter.
 > Both use the same core engine.
+
+---
+
+## Ecosystem
+
+MCP Workbench provides multiple interfaces on top of a shared core engine:
+
+| Interface | Repository | npm | Description |
+|-----------|-----------|-----|-------------|
+| CLI (human-facing) | [mcp-workbench](https://github.com/raeseoklee/mcp-workbench) | `@mcp-workbench/cli` | Inspect, test, validate from the terminal |
+| VS Code (developer-facing) | [mcp-workbench-vscode](https://github.com/raeseoklee/mcp-workbench-vscode) | — | Interactive workflow in the editor |
+| MCP Server (agent-facing) | [mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server) | `@mcp-workbench/mcp-server` | Expose capabilities to AI agents |
 
 ---
 

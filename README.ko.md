@@ -2,16 +2,13 @@
 
 [English](README.md) | **한국어**
 
-**MCP 서버 개발자를 위한 품질 플랫폼.**
+[Model Context Protocol](https://modelcontextprotocol.io) 서버를 테스트·검사·검증하는 개발자 툴킷.
 
-커맨드라인 또는 CI 환경에서 [Model Context Protocol](https://modelcontextprotocol.io) 서버를 테스트·검사·검증합니다.
+**Swagger UI + CLI + 에이전트 인터페이스**를 MCP에 적용한 도구입니다.
 
 [![CI](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml/badge.svg)](https://github.com/raeseoklee/mcp-workbench/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@mcp-workbench/cli)](https://www.npmjs.com/package/@mcp-workbench/cli)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-
-```
-MCP Workbench = Inspector + Contract Test + Regression Diff + CI Runner
-```
 
 ![MCP Workbench demo](docs/assets/demo.gif)
 
@@ -19,8 +16,8 @@ MCP Workbench = Inspector + Contract Test + Regression Diff + CI Runner
 
 ## 왜 MCP Workbench인가?
 
-MCP 생태계에는 디버깅 도구(Inspector)와 SDK는 있지만, 전용 품질 검증 플랫폼은 없습니다.
-MCP Workbench가 그 공백을 채웁니다: **저장된 테스트, 회귀 diff, CI에 바로 쓸 수 있는 어서션 실행**.
+MCP는 AI 모델이 외부 도구와 연결되는 표준 인터페이스로 자리잡고 있습니다. 하지만 서버를 테스트하고 검증하기 위한 개발자 도구는 아직 부족합니다.
+MCP Workbench가 그 공백을 채웁니다 — **인터랙티브 검사, 계약 테스트, 회귀 diff, CI 실행**.
 
 | 도구 | 인터랙티브 디버그 | 저장된 테스트 | 회귀 Diff | CI 러너 |
 |------|:-----------------:|:-------------:|:---------:|:-------:|
@@ -65,17 +62,13 @@ npm install -g mcp-workbench-cli
 
 ## 빠른 시작
 
-### 지금 바로 시작하기 (설정 불필요)
-
-CLI와 번들된 데모 서버를 설치한 뒤 검사해보세요:
+### 지금 바로 시작하기 (설치 불필요)
 
 ```bash
-npm install -g @mcp-workbench/cli @mcp-workbench/demo-mcp
-
-mcp-workbench inspect --command mcp-workbench-demo
+npx @mcp-workbench/cli inspect --command npx --args "-y @mcp-workbench/demo-mcp"
 ```
 
-데모 서버는 날씨 도구, 노트 리소스, 인사 프롬프트를 제공합니다. 서버 코드 한 줄 작성 없이 MCP Workbench의 모든 기능을 탐색할 수 있습니다.
+번들된 데모 서버에 연결해 도구, 리소스, 프롬프트를 확인합니다. 설치가 필요 없습니다.
 
 ### 서버 검사하기
 
@@ -425,13 +418,19 @@ inspect / generate / run 기능을 MCP tool로 노출해 AI 에이전트가 전�
 | `run_spec` | 스펙(인라인 텍스트 또는 파일 경로)을 실행하고 구조화된 결과 반환 |
 | `explain_failure` | 실패 원인 분류 (인증, placeholder, 프로토콜 등) |
 
-```json
-// claude_desktop_config.json
+```bash
+# Claude Code
+claude mcp add mcp-workbench -- npx -y @mcp-workbench/mcp-server
+
+# OpenAI Codex CLI
+codex mcp add mcp-workbench -- npx -y @mcp-workbench/mcp-server
+
+# Claude Desktop / Cursor (claude_desktop_config.json 또는 .cursor/mcp.json)
 {
   "mcpServers": {
     "mcp-workbench": {
-      "command": "node",
-      "args": ["/path/to/mcp-workbench-mcp-server/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@mcp-workbench/mcp-server"]
     }
   }
 }
@@ -441,6 +440,18 @@ inspect / generate / run 기능을 MCP tool로 노출해 AI 에이전트가 전�
 > `@mcp-workbench/cli`는 사람용 실행기.
 > `mcp-workbench-mcp-server`는 에이전트용 MCP 어댑터.
 > 둘 다 동일한 core 엔진을 사용합니다.
+
+---
+
+## 에코시스템
+
+MCP Workbench는 공유 코어 엔진 위에 여러 인터페이스를 제공합니다:
+
+| 인터페이스 | 저장소 | npm | 설명 |
+|-----------|--------|-----|------|
+| CLI (사람용) | [mcp-workbench](https://github.com/raeseoklee/mcp-workbench) | `@mcp-workbench/cli` | 터미널에서 검사, 테스트, 검증 |
+| VS Code (개발자용) | [mcp-workbench-vscode](https://github.com/raeseoklee/mcp-workbench-vscode) | — | 에디터에서 인터랙티브 워크플로 |
+| MCP Server (에이전트용) | [mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server) | `@mcp-workbench/mcp-server` | AI 에이전트에 기능 노출 |
 
 ---
 
