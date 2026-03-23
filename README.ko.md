@@ -55,7 +55,7 @@ npm install -g mcp-workbench-cli
 
 > **왜 `npm install -g mcp-workbench`가 아닌가요?**
 > npm의 unscoped 패키지명 `mcp-workbench`는 관련 없는 다른 프로젝트(MCP 서버 애그리게이터)가 사용 중입니다.
-> 이 프로젝트는 테스트·검증 플랫폼으로, 완전히 다른 도구입니다.
+> 이 프로젝트는 테스트·검증 툴킷으로, 완전히 다른 도구입니다.
 > 자세한 내용은 [docs/npm-distribution.md](docs/npm-distribution.md)를 참고하세요.
 
 ---

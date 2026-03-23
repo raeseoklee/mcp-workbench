@@ -55,7 +55,7 @@ Both provide the same `mcp-workbench` command.
 
 > **Why not `npm install -g mcp-workbench`?**
 > The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MCP server aggregator).
-> Our project is a testing/validation platform — a completely different tool.
+> Our project is a testing/validation toolkit — a completely different tool.
 > See [docs/npm-distribution.md](docs/npm-distribution.md) for details.
 
 ---
